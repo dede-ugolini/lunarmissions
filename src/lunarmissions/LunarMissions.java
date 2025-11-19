@@ -16,8 +16,14 @@ public class LunarMissions {
     }
   }
 
+  public void listDefaultSpaceShips() {
+    for (SpaceShip e : SpaceShip.values())
+      System.out.println(e);
+  }
+
   public static void main(String[] args) {
     LunarMissions lunarMissions = new LunarMissions();
-    lunarMissions.hello();
+    // lunarMissions.hello();
+    lunarMissions.addSpaceShip();
   }
 }
