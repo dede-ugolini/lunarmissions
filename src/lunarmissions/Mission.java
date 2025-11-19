@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import lunarmissions.ConsoleColors.Color;
+
 /**
  * Representa uma viagem específica a Lua
  */
@@ -17,7 +19,7 @@ public class Mission {
   // private ArrayList<Astronaut> astronauts;
 
   Scanner in = new Scanner(System.in);
-  private ArrayList<Mission> missionsList = new ArrayList<Mission>();
+  private static ArrayList<Mission> missionsList = new ArrayList<Mission>();
 
   public UUID getID() {
     return uuid;
@@ -56,20 +58,39 @@ public class Mission {
   }
 
   public void listMissions() {
-    /* if (!missionsList.isEmpty()) { */
-    /*
-     * for (Mission mission : missionsList) {
-     * System.out.println(mission);
-     * }
-     * /*
-     * } else {
-     * System.err.println("Não existem missões ainda");
-     * }
-     */
+    if (!missionsList.isEmpty()) {
+      System.out.println("TODAS AS MISSÕES");
+      for (Mission mission : missionsList) {
+        System.out.println(mission);
+      }
+    } else {
+      System.err.println("Não existem missões ainda");
+    }
   }
 
   public ArrayList<Mission> getMissions() {
     return missionsList;
+  }
+
+  public void handleRemoveOptions() {
+    int option = 0;
+    System.out.println("Escolha uma opção para remover uma missão: UUID ou index");
+    System.out.println("1 - Index");
+    System.out.println("2 - UUID");
+    option = in.nextInt();
+    switch (option) {
+      case 1:
+        removeMission(in.nextInt());
+        break;
+      case 2:
+        System.out.println("Digite o uuid:");
+        String uuid = null;
+        uuid = in.next();
+        removeMission(UUID.fromString(uuid));
+        break;
+      default:
+        System.err.println(Color.RED + "Opção não reconhecida" + Color.RESET);
+    }
   }
 
   public void removeMission(int index) {
@@ -77,14 +98,14 @@ public class Mission {
   }
 
   public void removeMission(UUID uuid) {
-    for (Mission m : missionsList) {
-      if (m.getID() == uuid) {
+
+    for (int i = 0; i < getMissions().size(); i++) {
+      if (getMissions().get(i).getID().equals(uuid)) {
         System.out.println("Id encontrado");
-        break;
+        System.out.println("Index: " + i);
+        missionsList.remove(i);
       }
     }
-    System.err.println("Id not found");
-
   }
 
   public void openMission() {
@@ -94,6 +115,7 @@ public class Mission {
     System.out.println("Digite o destino");
     mission.setDestination(in.nextLine());
     System.out.println("Digite o objetivo da missão");
+    mission.setGoal(in.nextLine());
     mission.setSpaceShip(SpaceShip.MILLENIUM_FALCON);
     System.out.println(mission);
     missionsList.add(mission);
