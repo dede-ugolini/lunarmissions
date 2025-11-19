@@ -15,7 +15,7 @@ public class Mission {
   private String name;
   private String destination;
   private String goal;
-  private SpaceShip spaceShip;
+  private String spaceShip;
   // private ArrayList<Astronaut> astronauts;
 
   Scanner in = new Scanner(System.in);
@@ -25,11 +25,11 @@ public class Mission {
     return uuid;
   }
 
-  public SpaceShip getSpaceShip() {
+  public String getSpaceShip() {
     return spaceShip;
   }
 
-  public void setSpaceShip(SpaceShip spaceShip) {
+  public void setSpaceShip(String spaceShip) {
     this.spaceShip = spaceShip;
   }
 
@@ -59,16 +59,23 @@ public class Mission {
 
   public void listMissions() {
     if (!missionsList.isEmpty()) {
+      System.out.println("");
       System.out.println("TODAS AS MISSÕES");
+      int index = 0;
       for (Mission mission : missionsList) {
+        System.out.println("Index: " + index);
         System.out.println(mission);
+        index++;
       }
     } else {
-      System.err.println("Não existem missões ainda");
+      System.out.println("");
+      System.err.println("Não existem missões ainda.");
     }
   }
 
-  public ArrayList<Mission> getMissions() {
+  public ArrayList<Mission> getMissions() { // Não sei se esse método é muito útil
+    // já que o ArrayList é static e qualquer um pode acessar, talvez seja util para
+    // Classes de fora que desejam acessa-lo, já que ele é privado
     return missionsList;
   }
 
@@ -116,7 +123,7 @@ public class Mission {
     mission.setDestination(in.nextLine());
     System.out.println("Digite o objetivo da missão");
     mission.setGoal(in.nextLine());
-    mission.setSpaceShip(SpaceShip.MILLENIUM_FALCON);
+    mission.setSpaceShip(SpaceShip.MILLENIUM_FALCON.getName());
     System.out.println(mission);
     missionsList.add(mission);
     System.out.println("Missão adicionada!");
@@ -124,10 +131,10 @@ public class Mission {
 
   @Override
   public String toString() {
-    return ("UUUID: " + uuid +
-        "\nName: " + name +
-        "\nDestination: " + destination +
-        "\nGoal: " + goal +
-        "\nSpaceShip: " + spaceShip + "\n");
+    return ("UUID: " + uuid +
+        "\nNome: " + name +
+        "\nDestino: " + destination +
+        "\nObjetivo: " + goal +
+        "\nNave espacial: " + spaceShip + "\n");
   }
 }
