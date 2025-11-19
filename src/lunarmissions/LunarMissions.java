@@ -1,6 +1,7 @@
 package lunarmissions;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LunarMissions {
 
@@ -8,11 +9,13 @@ public class LunarMissions {
   Mission mission = new Mission();
   Mission mission2 = new Mission();
 
-  public void hello() {
-    missions.add(mission);
-    missions.add(mission2);
-    for (Mission mission : missions) {
-      System.out.println(mission);
+  Scanner in = new Scanner(System.in);
+
+  public void listMissions() {
+    if (!missions.isEmpty()) {
+      for (Mission mission : missions) {
+        System.out.println(mission);
+      }
     }
   }
 
@@ -21,9 +24,18 @@ public class LunarMissions {
       System.out.println(e);
   }
 
+  public void openMission() {
+    System.out.println("Digite o destino");
+    mission.setDestination(in.nextLine());
+  }
+
+  public void start() {
+    Menu menu = new Menu();
+    menu.openInitalMenu();
+  }
+
   public static void main(String[] args) {
     LunarMissions lunarMissions = new LunarMissions();
-    // lunarMissions.hello();
-    lunarMissions.addSpaceShip();
+    lunarMissions.start();
   }
 }

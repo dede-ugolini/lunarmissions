@@ -39,7 +39,7 @@ public class Mission {
     return destination;
   }
 
-  public void getDestination(String destination) {
+  public void setDestination(String destination) {
     this.destination = destination;
   }
 
@@ -58,10 +58,5 @@ public class Mission {
         "\nDestination: " + destination +
         "\nGoal: " + goal +
         "\nSpaceShip: " + spaceShip + "\n");
-  }
-
-  public static void main(String[] args) {
-    Mission mission = new Mission();
-    System.out.println(mission.uuid);
   }
 }
