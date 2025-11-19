@@ -1,16 +1,20 @@
 package lunarmissions;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Menu {
 
   Scanner in = new Scanner(System.in);
-  LunarMissions lunarMissions = new LunarMissions();
+  Mission mission = new Mission();
 
   public void openInitalMenu() {
     System.out.println();
     System.out.println("1 - Listar todas as missões");
     System.out.println("2 - Abrir nova missão");
+    System.out.println("3 - Remover uma missão");
+    System.out.println("0 - Para sair do sistema");
+
     handleOptions();
   }
 
@@ -25,12 +29,14 @@ public class Menu {
         break;
 
       case 1:
-        lunarMissions.listMissions();
+        mission.listMissions();
         break;
       case 2:
-        lunarMissions.openMission();
+        mission.openMission();
         break;
-
+      case 3:
+        mission.handleRemoveOptions();
+        break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
         System.exit(1);
