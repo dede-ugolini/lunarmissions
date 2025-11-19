@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"lunarmissions","l":"Astronaut"},{"p":"lunarmissions","l":"ConsoleColors"},{"p":"lunarmissions","l":"SpaceShip","k":"9"}];updateSearchResults();
