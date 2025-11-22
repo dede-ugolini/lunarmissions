@@ -11,13 +11,13 @@ public class Menu {
   Ascii ascii = new Ascii();
 
   public void openInitalMenu() {
-    System.out.println(ascii.space());
     System.out.println(Color.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + Color.RESET);
     // Pro tip: Ascii de viado não pode faltar
     System.out.println();
     System.out.println("1 - Listar todas as missões");
     System.out.println("2 - Abrir nova missão");
     System.out.println("3 - Remover uma missão");
+    System.out.println("4 - Listar naves espaciais padrão");
     System.out.println("0 - Para sair do sistema");
 
     handleOptions();
@@ -41,6 +41,9 @@ public class Menu {
         break;
       case 3:
         mission.handleRemoveOptions();
+        break;
+      case 4:
+        mission.listSpaceShips();
         break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
