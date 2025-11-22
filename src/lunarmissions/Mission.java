@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import lunarmissions.ConsoleColors;
+import lunarmissions.SpaceShip;
 import lunarmissions.ConsoleColors.Color;
 
 /**
@@ -123,10 +125,38 @@ public class Mission {
     mission.setDestination(in.nextLine());
     System.out.println("Digite o objetivo da missão");
     mission.setGoal(in.nextLine());
-    mission.setSpaceShip(SpaceShip.MILLENIUM_FALCON.getName());
-    System.out.println(mission);
+    askSpaceShip(mission);
     missionsList.add(mission);
     System.out.println("Missão adicionada!");
+  }
+
+  public void askSpaceShip(Mission mission) {
+    System.out.println("Deseja selecionar uma nave predefinida? (y/n)");
+    char answer = in.next().charAt(0);
+    switch (answer) {
+      case 'y':
+        System.out.println("Selecione uma nave pelo index");
+        listSpaceShips();
+        break;
+      case 'n':
+        System.out.println("Digite o seu modelo pessoal de nave");
+        mission.setSpaceShip(in.nextLine());
+        break;
+      default:
+        System.err.println("\"" + answer + "\" Não é uma reconhecida");
+    }
+  }
+
+  public void listSpaceShips() {
+    ArrayList<SpaceShip> shipsList = new ArrayList<SpaceShip>();
+    int index = 0;
+    System.out.println("Index\tNave Espacial");
+    for (SpaceShip ship : SpaceShip.values()) {
+      shipsList.add(ship);
+      System.out.println(index + "\t" + shipsList.get(index).getName());
+      index++;
+    }
+    in.nextLine();
   }
 
   @Override
