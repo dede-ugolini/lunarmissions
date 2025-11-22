@@ -1,18 +1,17 @@
 package lunarmissions.view;
 
-import lunarmissions.view.*;
-import lunarmissions.standard.*;
+import lunarmissions.service.MissionService;
 import java.util.Scanner;
 
 public class Menu {
 
   Scanner in = new Scanner(System.in);
-  Mission mission = new Mission();
+  MissionService mission = new MissionService();
   Ascii ascii = new Ascii();
 
   public void openInitalMenu() {
     // Pro tip: Ascii de viado não pode faltar
-    System.out.println("‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ ");
+    System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
     System.out.println("1 - Listar todas as missões");
     System.out.println("2 - Abrir nova missão");

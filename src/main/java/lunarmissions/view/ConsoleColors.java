@@ -4,7 +4,7 @@ package lunarmissions.view;
  * Fornece constantes ASCII para colorir a saída do terminal
  */
 
-enum Color {
+enum ConsoleColors {
   // Color end string, color reset
   RESET("\033[0m"),
 
@@ -81,7 +81,7 @@ enum Color {
 
   private final String code;
 
-  Color(String code) {
+  ConsoleColors(String code) {
     this.code = code;
   }
 

@@ -71,12 +71,6 @@ public class Mission {
     }
   }
 
-  public ArrayList<Mission> getMissions() { // Não sei se esse método é muito útil
-    // já que o ArrayList é static e qualquer um pode acessar, talvez seja util para
-    // Classes de fora que desejam acessa-lo, já que ele é privado
-    return missionsList;
-  }
-
   public void handleRemoveOptions() {
     int option = 0;
     System.out.println("Escolha uma opção para remover uma missão: UUID ou index");
@@ -99,13 +93,13 @@ public class Mission {
   }
 
   public void removeMission(int index) {
-    getMissions().remove(index);
+    missionsList.remove(index);
   }
 
   public void removeMission(UUID uuid) {
 
-    for (int i = 0; i < getMissions().size(); i++) {
-      if (getMissions().get(i).getID().equals(uuid)) {
+    for (int i = 0; i < missionsList.size(); i++) {
+      if (missionsList.get(i).getID().equals(uuid)) {
         System.out.println("Id encontrado");
         System.out.println("Index: " + i);
         missionsList.remove(i);
