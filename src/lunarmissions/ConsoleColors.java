@@ -1,5 +1,8 @@
 package lunarmissions;
 
+/**
+ * Fornece constantes ASCII para colorir a saída do terminal
+ */
 public class ConsoleColors {
 
   enum Color {
@@ -87,10 +90,5 @@ public class ConsoleColors {
     public String toString() {
       return code;
     }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(Color.GREEN + "Hello World" + Color.RESET);
-    System.out.println("Hello World");
   }
 }
