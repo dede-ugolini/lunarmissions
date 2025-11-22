@@ -5,4 +5,4 @@ Bem vindo a Lunar Systems, agência espacial proprietária de um sistema feito e
 ## Depêndencias
 
 Existem alguns glifos (glyphs) que para serem exibidos em um terminal dependem de nerdfonts
-por exemplo o famoso foguetinho 🚀.
+por exemplo o famoso foguetinho 🚀. [Nerd Fonts](https://www.nerdfonts.com/)
