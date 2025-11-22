@@ -1,3 +1,5 @@
 *.pdf
-bin/
+bin
 docs/
+docs/
+docs
