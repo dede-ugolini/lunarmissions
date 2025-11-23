@@ -1,8 +1,6 @@
 package lunarmissions.standard;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.UUID;
 
 /**
