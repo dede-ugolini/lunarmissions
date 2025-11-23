@@ -7,11 +7,14 @@ import java.util.UUID;
 
 // Operações de output
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 // Operações de input
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.io.EOFException;
+import java.io.File;
 
 /**
  * Fornece metodos para gerenciar missisoes
@@ -24,7 +27,7 @@ public class MissionService {
   public void writeMission() {
     try {
       if (!missionsList.isEmpty()) {
-        FileOutputStream fos = new FileOutputStream("./log.txt");
+        FileOutputStream fos = new FileOutputStream("./log.txt", true);
         ObjectOutputStream output = new ObjectOutputStream(fos);
         for (int i = 0; i < missionsList.size(); i++) {
           output.writeObject(missionsList.get(i));
@@ -42,12 +45,20 @@ public class MissionService {
 
   public void readMission() {
     try {
-      FileInputStream fis = new FileInputStream("./log.txt");
-      ObjectInputStream input = new ObjectInputStream(fis);
-      Mission m = (Mission) input.readObject();
-      System.out.println(m);
-    } catch (Exception e) {
-      System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+      File inputFile = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/log.txt");
+      FileInputStream fis = new FileInputStream(inputFile);
+      ObjectInputStream ObjInStream = new ObjectInputStream(fis);
+
+      while (true) {
+        try {
+          System.out.println(ObjInStream.readObject());
+        } catch (EOFException e) {
+          System.out.println("Fim do arquivo.");
+          ObjInStream.close();
+          break;
+        }
+      }
+    } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
     }
   }
