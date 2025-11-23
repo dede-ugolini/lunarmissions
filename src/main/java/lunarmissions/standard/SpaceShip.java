@@ -1,4 +1,5 @@
 package lunarmissions.standard;
+// TODO adicionar mais algumas naves e descrição a elas
 
 /**
  * Armazena alguns modelos lendários de naves espaciais

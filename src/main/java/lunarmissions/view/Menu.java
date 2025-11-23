@@ -11,6 +11,7 @@ public class Menu {
 
   public void openInitalMenu() {
     // Pro tip: Ascii de viado não pode faltar
+    System.out.println("");
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
     System.out.println("1 - Listar todas as missões");

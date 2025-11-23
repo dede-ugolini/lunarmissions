@@ -1,6 +1,8 @@
 package lunarmissions.service;
 
 import lunarmissions.standard.*;
+import lunarmissions.view.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -9,10 +11,11 @@ import java.util.UUID;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-
+import java.io.StreamCorruptedException;
 // Operações de input
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.io.Console;
 import java.io.EOFException;
 import java.io.File;
 
@@ -46,6 +49,9 @@ public class MissionService {
           output.writeObject(missionsList.get(i));
         }
         System.out.println("Missões salvas com sucesso");
+        fos.flush();
+        fos.close();
+        output.flush();
         output.close();
       } else {
         System.err.println("Não existem missões ainda");
@@ -64,10 +70,13 @@ public class MissionService {
 
       while (true) {
         try {
-          System.out.println(ObjInStream.readObject());
+          System.out.println((Mission) ObjInStream.readObject());
         } catch (EOFException e) {
           System.out.println("Fim do arquivo.");
           ObjInStream.close();
+          break;
+        } catch (StreamCorruptedException e) {
+          System.out.println(ConsoleColors.RED + "Erro de Stream Corrupeted Exception" + ConsoleColors.RESET);
           break;
         }
       }
