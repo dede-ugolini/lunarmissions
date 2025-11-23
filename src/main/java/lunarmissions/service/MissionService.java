@@ -7,19 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-// Operações de output
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
-// Operações de input
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.io.EOFException;
 import java.io.File;
 
 import java.io.FileWriter;
 import java.io.FileReader;
+
+import java.io.BufferedReader;
 
 /**
  * Fornece metodos para gerenciar missões
@@ -31,9 +24,9 @@ public class MissionService {
 
   static File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/log.txt");
 
-  public void newWriteMission() {
+  public void writeMission() {
     try {
-      FileWriter fileWriter = new FileWriter(file);
+      FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < missionsList.size(); i++) {
         fileWriter.write(missionsList.get(i).toString() + "\n");
       }
@@ -46,60 +39,31 @@ public class MissionService {
     }
   }
 
-  public void clearFile() {
-    try {
-      FileOutputStream fos = new FileOutputStream(file, false);
-      ObjectOutputStream ObjOutStream = new ObjectOutputStream(fos);
-      ObjOutStream.writeChars("");
-      System.out.println("Conteúdo do arquivo vazio");
-      ObjOutStream.flush();
-      ObjOutStream.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void writeMission() {
-    try {
-      if (!missionsList.isEmpty()) {
-        FileOutputStream fos = new FileOutputStream(file, true);
-        ObjectOutputStream output = new ObjectOutputStream(fos);
-        for (int i = 0; i < missionsList.size(); i++) {
-          output.writeObject(missionsList.get(i));
-        }
-        System.out.println("Missões salvas com sucesso");
-        fos.flush();
-        fos.close();
-        output.flush();
-        output.close();
-      } else {
-        System.err.println("Não existem missões ainda");
-      }
-    } catch (Exception e) {
-      System.err.println("Não foi possível salvar as missões: " + e.getMessage());
-      e.printStackTrace();
-    }
-  }
-
   public void readMission() {
     try {
-      FileInputStream fis = new FileInputStream(file);
-      ObjectInputStream ObjInStream = new ObjectInputStream(fis);
 
-      while (true) {
-        try {
-          System.out.println((Mission) ObjInStream.readObject());
-        } catch (EOFException e) {
-          System.out.println("Fim do arquivo.");
-          ObjInStream.close();
-          break;
-        } catch (StreamCorruptedException e) {
-          System.out.println(
-              ConsoleColors.RED + "Erro de Stream Corrupeted Exception:  " + e.getMessage() + ConsoleColors.RESET);
-          break;
-        }
+      FileReader fileReader = new FileReader(file);
+      BufferedReader reader = new BufferedReader(fileReader);
+      String line;
+      while ((line = reader.readLine()) != null) {
+        System.out.println(line);
       }
-    } catch (IOException | ClassNotFoundException e) {
+      reader.close();
+    } catch (Exception e) {
+      System.err.println("Erro em fileReader:" + e.getMessage());
+    }
+  }
+
+  public void clearFile() {
+    try {
+      FileWriter fileWriter = new FileWriter(file, false);
+      fileWriter.write("");
+      fileWriter.flush();
+      fileWriter.close();
+      System.out.println(ConsoleColors.GREEN + "Arquivo limpado com sucesso!" + ConsoleColors.RESET);
+    } catch (Exception e) {
+      System.err
+          .println(ConsoleColors.RED + "Erro ao limpar o conteúdo do arquivo: " + e.getMessage() + ConsoleColors.RESET);
       e.printStackTrace();
     }
   }
