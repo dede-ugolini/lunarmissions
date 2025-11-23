@@ -11,6 +11,13 @@ public class Menu {
 
   public void openInitalMenu() {
     // Pro tip: Ascii de viado não pode faltar
+
+    System.out.print("Processando");
+    for (int i = 0; i < 3; i++) {
+      delay(1000);
+      System.out.print(".");
+    }
+    System.out.println();
     System.out.println("");
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
@@ -18,7 +25,7 @@ public class Menu {
     System.out.println("2 - Abrir nova missão");
     System.out.println("3 - Remover uma missão");
     System.out.println("4 - Listar naves espaciais padrão");
-    System.out.println("5 - Salvar missão em um arquivo");
+    System.out.println("5 - Serialização");
     System.out.println("6 - Ler arquivo");
     System.out.println("7 - Limpar conteúdo do arquivo");
     System.out.println("0 - Para sair do sistema");
@@ -32,13 +39,17 @@ public class Menu {
     switch (option) {
 
       case 0:
+        System.out.print("\033[H\033[2J"); // limpa terminal em ANSI
+        System.out.println("A gente se vê meu viajante" + ConsoleColors.MAGENTA);
+        delay(1500);
+        mission.planets();
         System.exit(0);
         break;
-
       case 1:
         mission.listMissions();
         break;
       case 2:
+        spinner("Ai meu cu");
         mission.openMission();
         break;
       case 3:
@@ -48,18 +59,37 @@ public class Menu {
         mission.listSpaceShips();
         break;
       case 5:
-        mission.writeMission();
+        mission.handleSerializationOptions();
         break;
       case 6:
-        mission.readMission();
-        break;
-      case 7:
-        mission.clearFile();
         break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
         System.exit(1);
         break;
+    }
+  }
+
+  public static void spinner(String msg) {
+    try {
+      String[] frames = { "|", "/", "-", "\\" };
+      System.out.print(" " + msg + "   ");
+
+      for (int i = 0; i < 20; i++) {
+        System.out.print("\b" + frames[i % frames.length]);
+        Thread.sleep(150);
+      }
+      System.out.println("\b ");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void delay(long ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

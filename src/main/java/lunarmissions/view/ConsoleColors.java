@@ -6,6 +6,7 @@ package lunarmissions.view;
 
 public enum ConsoleColors {
   // Color end string, color reset
+  CLEAR("\033[H\033[2J"), // limpa terminal em ANSI
   RESET("\033[0m"),
 
   // Regular Colors. Normal color, no bold, background color etc.

@@ -24,6 +24,30 @@ public class MissionService {
 
   static File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/log.txt");
 
+  public void handleSerializationOptions() {
+    int option = 0;
+    System.out.println("1 - Salvar em arquivo de texto (txt)");
+    System.out.println("2 - Salvar em arquivo de binário (Object Output Stream)");
+    System.out.println("3 - Salvar em banco de dados Nitrite");
+  }
+
+  public void planets() {
+
+    try {
+      File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/universe.txt");
+      FileReader fileReader = new FileReader(file);
+      BufferedReader bufferedReader = new BufferedReader(fileReader);
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        System.out.println(line);
+        Thread.sleep(20);
+      }
+      bufferedReader.close();
+    } catch (Exception e) {
+      // TODO: handle exception
+    }
+  }
+
   public void writeMission() {
     try {
       FileWriter fileWriter = new FileWriter(file, true);
@@ -92,6 +116,7 @@ public class MissionService {
     option = in.nextInt();
     switch (option) {
       case 1:
+        System.out.println();
         removeMission(in.nextInt());
         break;
       case 2:
@@ -107,15 +132,15 @@ public class MissionService {
 
   public void removeMission(int index) {
     missionsList.remove(index);
+    System.out.println("Missão removida!.");
   }
 
   public void removeMission(UUID uuid) {
 
     for (int i = 0; i < missionsList.size(); i++) {
       if (missionsList.get(i).getID().equals(uuid)) {
-        System.out.println("Id encontrado");
-        System.out.println("Index: " + i);
         missionsList.remove(i);
+        System.out.println("Missão removida!.");
       }
     }
   }
@@ -129,6 +154,7 @@ public class MissionService {
     System.out.println("Digite o objetivo da missão");
     mission.setGoal(in.nextLine());
     askSpaceShip(mission);
+    mission.setSpaceShip(SpaceShip.fromIndex(in.nextInt()));
     missionsList.add(mission);
     System.out.println("Missão adicionada!");
   }
@@ -138,8 +164,8 @@ public class MissionService {
     char answer = in.next().charAt(0);
     switch (answer) {
       case 'y':
-        System.out.println("Selecione uma nave pelo index");
         listSpaceShips();
+        System.out.println("\nSelecione uma nave pelo index");
         break;
       case 'n':
         System.out.println("Digite o seu modelo pessoal de nave");
@@ -151,13 +177,9 @@ public class MissionService {
   }
 
   public void listSpaceShips() {
-    ArrayList<SpaceShip> shipsList = new ArrayList<SpaceShip>();
-    int index = 0;
-    System.out.println("Index\tNave Espacial");
+    System.out.println("Index\tNave Espacial\t\tDescrição");
     for (SpaceShip ship : SpaceShip.values()) {
-      shipsList.add(ship);
-      System.out.println(index + "\t" + shipsList.get(index).getName());
-      index++;
+      System.out.println(ship.getIndex() + "\t" + ship.getName() + "\t" + ship.getDesc());
     }
     in.nextLine();
   }
