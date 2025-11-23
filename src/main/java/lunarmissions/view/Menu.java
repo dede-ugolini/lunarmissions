@@ -19,6 +19,7 @@ public class Menu {
     System.out.println("4 - Listar naves espaciais padrão");
     System.out.println("5 - Salvar missão em um arquivo");
     System.out.println("6 - Ler arquivo");
+    System.out.println("7 - Limpar conteúdo do arquivo");
     System.out.println("0 - Para sair do sistema");
     handleOptions();
   }
@@ -50,6 +51,9 @@ public class Menu {
         break;
       case 6:
         mission.readMission();
+        break;
+      case 7:
+        mission.clearFile();
         break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");

@@ -24,6 +24,19 @@ public class MissionService {
   private static ArrayList<Mission> missionsList = new ArrayList<Mission>();
   Scanner in = new Scanner(System.in);
 
+  public void clearFile() {
+    try {
+      FileOutputStream fos = new FileOutputStream("./log.txt", false);
+      ObjectOutputStream ObjOutStream = new ObjectOutputStream(fos);
+      ObjOutStream.writeChars("");
+      System.out.println("Conteúdo do arquivo vazio");
+      ObjOutStream.flush();
+      ObjOutStream.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public void writeMission() {
     try {
       if (!missionsList.isEmpty()) {
