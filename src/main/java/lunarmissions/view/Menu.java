@@ -21,6 +21,7 @@ public class Menu {
     System.out.println("5 - Salvar missão em um arquivo");
     System.out.println("6 - Ler arquivo");
     System.out.println("7 - Limpar conteúdo do arquivo");
+    System.out.println("8 - Testar nova funcionalidade de salvar usando FileWriter");
     System.out.println("0 - Para sair do sistema");
     handleOptions();
   }
@@ -55,6 +56,9 @@ public class Menu {
         break;
       case 7:
         mission.clearFile();
+        break;
+      case 8:
+        mission.newWriteMission();
         break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");

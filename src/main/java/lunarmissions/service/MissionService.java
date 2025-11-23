@@ -15,21 +15,40 @@ import java.io.StreamCorruptedException;
 // Operações de input
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.io.Console;
 import java.io.EOFException;
 import java.io.File;
 
+import java.io.FileWriter;
+import java.io.FileReader;
+
 /**
- * Fornece metodos para gerenciar missisoes
+ * Fornece metodos para gerenciar missões
  */
 public class MissionService {
 
   private static ArrayList<Mission> missionsList = new ArrayList<Mission>();
   Scanner in = new Scanner(System.in);
 
+  static File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/log.txt");
+
+  public void newWriteMission() {
+    try {
+      FileWriter fileWriter = new FileWriter(file);
+      for (int i = 0; i < missionsList.size(); i++) {
+        fileWriter.write(missionsList.get(i).toString() + "\n");
+      }
+      fileWriter.flush();
+      fileWriter.close();
+      System.out.println("Salvo usando FileWriter");
+    } catch (Exception e) {
+      System.err.println("Erro em escrever com FileWriter :" + e.getMessage());
+      e.printStackTrace();
+    }
+  }
+
   public void clearFile() {
     try {
-      FileOutputStream fos = new FileOutputStream("./log.txt", false);
+      FileOutputStream fos = new FileOutputStream(file, false);
       ObjectOutputStream ObjOutStream = new ObjectOutputStream(fos);
       ObjOutStream.writeChars("");
       System.out.println("Conteúdo do arquivo vazio");
@@ -43,7 +62,7 @@ public class MissionService {
   public void writeMission() {
     try {
       if (!missionsList.isEmpty()) {
-        FileOutputStream fos = new FileOutputStream("./log.txt", true);
+        FileOutputStream fos = new FileOutputStream(file, true);
         ObjectOutputStream output = new ObjectOutputStream(fos);
         for (int i = 0; i < missionsList.size(); i++) {
           output.writeObject(missionsList.get(i));
@@ -64,8 +83,7 @@ public class MissionService {
 
   public void readMission() {
     try {
-      File inputFile = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/log.txt");
-      FileInputStream fis = new FileInputStream(inputFile);
+      FileInputStream fis = new FileInputStream(file);
       ObjectInputStream ObjInStream = new ObjectInputStream(fis);
 
       while (true) {
@@ -76,7 +94,8 @@ public class MissionService {
           ObjInStream.close();
           break;
         } catch (StreamCorruptedException e) {
-          System.out.println(ConsoleColors.RED + "Erro de Stream Corrupeted Exception" + ConsoleColors.RESET);
+          System.out.println(
+              ConsoleColors.RED + "Erro de Stream Corrupeted Exception:  " + e.getMessage() + ConsoleColors.RESET);
           break;
         }
       }
