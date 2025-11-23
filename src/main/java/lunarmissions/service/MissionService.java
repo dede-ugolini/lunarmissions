@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+// Operações de output
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+// Operações de input
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 /**
  * Fornece metodos para gerenciar missisoes
  */
@@ -12,6 +20,25 @@ public class MissionService {
 
   private static ArrayList<Mission> missionsList = new ArrayList<Mission>();
   Scanner in = new Scanner(System.in);
+
+  public void writeMission() {
+    try {
+      if (!missionsList.isEmpty()) {
+        FileOutputStream fos = new FileOutputStream("./log.txt");
+        ObjectOutputStream output = new ObjectOutputStream(fos);
+        for (int i = 0; i < missionsList.size(); i++) {
+          output.writeObject(missionsList.get(i));
+        }
+        System.out.println("Missões salvas com sucesso");
+        output.close();
+      } else {
+        System.err.println("Não existem missões ainda");
+      }
+    } catch (Exception e) {
+      System.err.println("Não foi possível salvar as missões: " + e.getMessage());
+      e.printStackTrace();
+    }
+  }
 
   public void listMissions() {
     if (!missionsList.isEmpty()) {
