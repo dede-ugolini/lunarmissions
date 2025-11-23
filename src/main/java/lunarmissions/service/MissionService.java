@@ -40,6 +40,18 @@ public class MissionService {
     }
   }
 
+  public void readMission() {
+    try {
+      FileInputStream fis = new FileInputStream("./log.txt");
+      ObjectInputStream input = new ObjectInputStream(fis);
+      Mission m = (Mission) input.readObject();
+      System.out.println(m);
+    } catch (Exception e) {
+      System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+      e.printStackTrace();
+    }
+  }
+
   public void listMissions() {
     if (!missionsList.isEmpty()) {
       System.out.println("");

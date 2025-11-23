@@ -1,5 +1,6 @@
 package lunarmissions.standard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -7,7 +8,7 @@ import java.util.UUID;
 /**
  * Representa uma viagem específica a Lua
  */
-public class Mission {
+public class Mission implements Serializable {
 
   private final UUID uuid = UUID.randomUUID();
   private String name;
