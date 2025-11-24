@@ -35,7 +35,7 @@ public class Extras {
     System.out.println("1 - Usar hubble");
 
     int option = in.nextInt();
-
+    in.nextLine();
     switch (option) {
       case 1:
         hubble();
@@ -50,6 +50,7 @@ public class Extras {
   public void hubble() {
     System.out.println("1 - Gerar imagem do Universo");
     int option = in.nextInt();
+    in.nextLine();
     switch (option) {
       case 1:
         in.nextLine();
@@ -66,6 +67,7 @@ public class Extras {
     genImage("cosmos");
     wantZoom();
     char choice = in.nextLine().charAt(0);
+    in.nextLine();
     switch (choice) {
       case 'y':
         // genImage("");
@@ -82,6 +84,7 @@ public class Extras {
     genImage("andromeda");
     wantZoom();
     char choice = in.nextLine().charAt(0);
+    in.nextLine();
     switch (choice) {
       case 'y':
         genImage("zoomearth");
@@ -98,6 +101,7 @@ public class Extras {
     genImage("universe");
     wantZoom();
     char choice = in.nextLine().charAt(0);
+    in.nextLine();
     switch (choice) {
       case 'y':
         genImagePlanets();
@@ -114,6 +118,41 @@ public class Extras {
     genImage("planets");
     wantZoom();
     char choice = in.nextLine().charAt(0);
+    in.nextLine();
+    switch (choice) {
+      case 'y':
+        genImageEarth();
+        break;
+      case 'n':
+        break;
+      default:
+        optionNoRecognized();
+        break;
+    }
+  }
+
+  public void genImageEarth() {
+    genImage("earth");
+    wantZoom();
+    char choice = in.nextLine().charAt(0);
+    in.nextLine();
+    switch (choice) {
+      case 'y':
+        genImageZoomEarth();
+        break;
+      case 'n':
+        break;
+      default:
+        optionNoRecognized();
+        break;
+    }
+  }
+
+  public void genImageZoomEarth() {
+    genImage("zoomearth");
+    wantZoom();
+    char choice = in.nextLine().charAt(0);
+    in.nextLine();
     switch (choice) {
       case 'y':
         genImage("peituda");
