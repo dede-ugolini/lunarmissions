@@ -31,23 +31,6 @@ public class MissionService {
     System.out.println("3 - Salvar em banco de dados Nitrite");
   }
 
-  public void planets() {
-
-    try {
-      File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/universe.txt");
-      FileReader fileReader = new FileReader(file);
-      BufferedReader bufferedReader = new BufferedReader(fileReader);
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        System.out.println(line);
-        Thread.sleep(20);
-      }
-      bufferedReader.close();
-    } catch (Exception e) {
-      // TODO: handle exception
-    }
-  }
-
   public void writeMission() {
     try {
       FileWriter fileWriter = new FileWriter(file, true);

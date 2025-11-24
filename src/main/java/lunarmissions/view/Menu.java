@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Menu {
 
-  Scanner in = new Scanner(System.in);
+  private static Scanner in = new Scanner(System.in);
   MissionService mission = new MissionService();
-  Ascii ascii = new Ascii();
+  Extras extras = new Extras();
 
   public void openInitalMenu() {
     // Pro tip: Ascii de viado não pode faltar
@@ -26,8 +26,7 @@ public class Menu {
     System.out.println("3 - Remover uma missão");
     System.out.println("4 - Listar naves espaciais padrão");
     System.out.println("5 - Serialização");
-    System.out.println("6 - Ler arquivo");
-    System.out.println("7 - Limpar conteúdo do arquivo");
+    System.out.println("6 - Extras");
     System.out.println("0 - Para sair do sistema");
     handleOptions();
   }
@@ -40,9 +39,6 @@ public class Menu {
 
       case 0:
         System.out.print("\033[H\033[2J"); // limpa terminal em ANSI
-        System.out.println("A gente se vê meu viajante" + ConsoleColors.MAGENTA);
-        delay(1500);
-        mission.planets();
         System.exit(0);
         break;
       case 1:
@@ -62,6 +58,7 @@ public class Menu {
         mission.handleSerializationOptions();
         break;
       case 6:
+        extras.extras();
         break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
