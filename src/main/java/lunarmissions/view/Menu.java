@@ -8,6 +8,7 @@ public class Menu {
   private static Scanner in = new Scanner(System.in);
   MissionService mission = new MissionService();
   Extras extras = new Extras();
+  Ascii ascii = new Ascii();
 
   public void openInitalMenu() {
     // Pro tip: Ascii de viado não pode faltar
@@ -17,7 +18,9 @@ public class Menu {
       delay(1000);
       System.out.print(".");
     }
-    System.out.println();
+
+    System.out.println("");
+    System.out.println(ConsoleColors.BLUE + ascii.tittle() + ConsoleColors.RESET);
     System.out.println("");
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
