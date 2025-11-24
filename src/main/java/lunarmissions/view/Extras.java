@@ -48,7 +48,7 @@ public class Extras {
   }
 
   public void hubble() {
-    System.out.println("1 - Gerar imagem");
+    System.out.println("1 - Gerar imagem do Universo");
     int option = in.nextInt();
     switch (option) {
       case 1:
@@ -62,8 +62,56 @@ public class Extras {
     }
   }
 
+  public void genImageCosmos() {
+    genImage("cosmos");
+    wantZoom();
+    char choice = in.nextLine().charAt(0);
+    switch (choice) {
+      case 'y':
+        // genImage("");
+        break;
+      case 'n':
+        break;
+      default:
+        optionNoRecognized();
+        break;
+    }
+  }
+
+  public void genImageAndromeda() {
+    genImage("andromeda");
+    wantZoom();
+    char choice = in.nextLine().charAt(0);
+    switch (choice) {
+      case 'y':
+        genImage("zoomearth");
+        break;
+      case 'n':
+        break;
+      default:
+        optionNoRecognized();
+        break;
+    }
+  }
+
   public void genImageUniverse() {
-    System.out.println(ascii.universe());
+    genImage("universe");
+    wantZoom();
+    char choice = in.nextLine().charAt(0);
+    switch (choice) {
+      case 'y':
+        genImagePlanets();
+        break;
+      case 'n':
+        break;
+      default:
+        optionNoRecognized();
+        break;
+    }
+  }
+
+  public void genImagePlanets() {
+    genImage("planets");
     wantZoom();
     char choice = in.nextLine().charAt(0);
     switch (choice) {
@@ -76,7 +124,6 @@ public class Extras {
         optionNoRecognized();
         break;
     }
-
   }
 
   public void genImage(String image) {
@@ -93,19 +140,6 @@ public class Extras {
       bufferedReader.close();
     } catch (Exception e) {
       e.printStackTrace();
-    }
-    wantZoom();
-    char choice = in.nextLine().charAt(0);
-    switch (choice) {
-      case 'y':
-        System.out.println(ascii.saturn());
-        break;
-      case 'n':
-        System.out.println("pnc");
-        break;
-      default:
-        optionNoRecognized();
-        break;
     }
   }
 
