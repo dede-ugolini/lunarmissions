@@ -1,64 +1,51 @@
 package lunarmissions.view;
 
 import java.util.Scanner;
-import java.io.*;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class Extras {
 
   private final Scanner in = new Scanner(System.in);
-  private Ascii ascii = new Ascii();
+  Animations animations = new Animations();
+
+  private static String loadResource(String path) throws Exception {
+
+    InputStream inputStream = Extras.class.getResourceAsStream(path);
+    if (inputStream == null) {
+      throw new IllegalStateException("Recurso não encontrado: " + path);
+    }
+    byte[] bytes = inputStream.readAllBytes();
+    return new String(bytes, StandardCharsets.UTF_8);
+  }
 
   public void extras() {
-    System.out
-        .println("Bem vindo aos extras, se caso for sua primeira vez, use o tutorial,deseja abrir o tutorial? (y/n)");
+    System.out.println("Bem vindo aos extras versão Alpha");
+    System.out.println("Deseja usar o satélite Hubble? (y/n)");
     char choice = in.nextLine().charAt(0);
-
     switch (choice) {
       case 'y':
-        tutorial();
-        break;
-      case 'n':
-        handleOptions();
-        break;
-      default:
-        optionNoRecognized();
-        break;
-    }
-  }
-
-  public void tutorial() {
-    System.out.println("Bem vindo ao tutorial");
-  }
-
-  public void handleOptions() {
-
-    System.out.println("1 - Usar hubble");
-
-    int option = in.nextInt();
-    in.nextLine();
-    switch (option) {
-      case 1:
         hubble();
         break;
-
+      case 'n':
+        break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
 
   public void hubble() {
-    System.out.println("1 - Gerar imagem do Universo");
-    int option = in.nextInt();
-    in.nextLine();
-    switch (option) {
-      case 1:
-        in.nextLine();
+    System.out.println("Gerar imagem do Universo (y/n)");
+    char choice = in.nextLine().charAt(0);
+    switch (choice) {
+      case 'y':
         genImageUniverse();
         break;
-
+      case 'n':
+        break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
@@ -75,7 +62,7 @@ public class Extras {
       case 'n':
         break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
@@ -92,7 +79,7 @@ public class Extras {
       case 'n':
         break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
@@ -109,7 +96,7 @@ public class Extras {
       case 'n':
         break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
@@ -126,7 +113,7 @@ public class Extras {
       case 'n':
         break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
@@ -135,7 +122,6 @@ public class Extras {
     genImage("earth");
     wantZoom();
     char choice = in.nextLine().charAt(0);
-    in.next();
     switch (choice) {
       case 'y':
         genImageZoomEarth();
@@ -143,7 +129,7 @@ public class Extras {
       case 'n':
         break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
@@ -152,31 +138,24 @@ public class Extras {
     genImage("zoomearth");
     wantZoom();
     char choice = in.nextLine().charAt(0);
-    in.next();
     switch (choice) {
       case 'y':
+        System.out.print(ConsoleColors.CLEAR);
+        animations.troughtputBar();
         genImage("peituda");
         break;
       case 'n':
         break;
       default:
-        optionNoRecognized();
+        optionNoRecognized(choice);
         break;
     }
   }
 
   public void genImage(String image) {
     try {
-      File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/" + image + ".txt");
-      FileReader fileReader = new FileReader(file);
-      BufferedReader bufferedReader = new BufferedReader(fileReader);
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        System.out.println(line);
-        Thread.sleep(20);
-      }
-      in.nextLine();
-      bufferedReader.close();
+      String ascii = loadResource("/resources/" + image + ".txt");
+      System.out.println(ascii);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -186,7 +165,15 @@ public class Extras {
     System.out.println("Deseja dar zoom (y/n)");
   }
 
-  public void optionNoRecognized() {
-    System.out.println("Opção não reconhecida.");
+  public void optionNoRecognized(String option) {
+    System.out.println('"' + option + '"' + "não é uma opção reconhecida.");
+  }
+
+  public void optionNoRecognized(char option) {
+    System.out.println('"' + option + '"' + " não é uma opção reconhecida.");
+  }
+
+  public void optionNoRecognized(int option) {
+    System.out.println('"' + option + '"' + "não é uma opção reconhecida.");
   }
 }
