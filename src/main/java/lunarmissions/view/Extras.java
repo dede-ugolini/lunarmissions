@@ -35,7 +35,7 @@ public class Extras {
     }
   }
 
-  public void hubble() {
+  private void hubble() {
     System.out.println("Gerar imagem do Universo (y/n)");
     char choice = in.nextLine().charAt(0);
     switch (choice) {
@@ -67,7 +67,7 @@ public class Extras {
     }
   }
 
-  public void genImageAndromeda() {
+  private void genImageAndromeda() {
     genImage("andromeda");
     wantZoom();
     char choice = in.nextLine().charAt(0);
@@ -84,7 +84,7 @@ public class Extras {
     }
   }
 
-  public void genImageUniverse() {
+  private void genImageUniverse() {
     genImage("universe");
     wantZoom();
     char choice = in.nextLine().charAt(0);
@@ -101,7 +101,7 @@ public class Extras {
     }
   }
 
-  public void genImagePlanets() {
+  private void genImagePlanets() {
     genImage("planets");
     wantZoom();
     char choice = in.nextLine().charAt(0);
@@ -118,7 +118,7 @@ public class Extras {
     }
   }
 
-  public void genImageEarth() {
+  private void genImageEarth() {
     genImage("earth");
     wantZoom();
     char choice = in.nextLine().charAt(0);
@@ -134,7 +134,7 @@ public class Extras {
     }
   }
 
-  public void genImageZoomEarth() {
+  private void genImageZoomEarth() {
     genImage("zoomearth");
     wantZoom();
     char choice = in.nextLine().charAt(0);
@@ -152,7 +152,7 @@ public class Extras {
     }
   }
 
-  public void genImage(String image) {
+  public static void genImage(String image) {
     try {
       String ascii = loadResource("/resources/" + image + ".txt");
       System.out.println(ascii);
@@ -165,15 +165,17 @@ public class Extras {
     System.out.println("Deseja dar zoom (y/n)");
   }
 
-  public void optionNoRecognized(String option) {
-    System.out.println('"' + option + '"' + "não é uma opção reconhecida.");
+  // TODO: Corrigir o output
+  public static void optionNoRecognized(String option) {
+    System.out.println(/* '"' + option + '"' + */"não é uma opção reconhecida.");
   }
 
-  public void optionNoRecognized(char option) {
-    System.out.println('"' + option + '"' + " não é uma opção reconhecida.");
+  public static void optionNoRecognized(char option) {
+    System.out.println(/* '"' + option + '"' + */" não é uma opção reconhecida.");
   }
 
-  public void optionNoRecognized(int option) {
-    System.out.println('"' + option + '"' + "não é uma opção reconhecida.");
+  public static void optionNoRecognized(int option) {
+    System.out.println(/* '"' + option + '"' + */"não é uma opção reconhecida.");
   }
+
 }
