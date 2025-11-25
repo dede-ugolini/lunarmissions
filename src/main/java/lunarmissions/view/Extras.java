@@ -135,7 +135,7 @@ public class Extras {
     genImage("earth");
     wantZoom();
     char choice = in.nextLine().charAt(0);
-    in.nextLine();
+    in.next();
     switch (choice) {
       case 'y':
         genImageZoomEarth();
@@ -152,7 +152,7 @@ public class Extras {
     genImage("zoomearth");
     wantZoom();
     char choice = in.nextLine().charAt(0);
-    in.nextLine();
+    in.next();
     switch (choice) {
       case 'y':
         genImage("peituda");

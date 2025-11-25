@@ -1,6 +1,13 @@
 package lunarmissions.view;
 
 public class Animations {
+  public static void main(String[] args) {
+    Animations animations = new Animations();
+    animations.progressBar();
+    animations.progressEta();
+    animations.troughtputBar();
+
+  }
 
   public void progressEta() {
     final int totalSteps = 300;

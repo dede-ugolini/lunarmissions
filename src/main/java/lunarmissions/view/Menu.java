@@ -11,7 +11,6 @@ public class Menu {
   Ascii ascii = new Ascii();
 
   public void openInitalMenu() {
-    // Pro tip: Ascii de viado não pode faltar
 
     System.out.print("Processando");
     for (int i = 0; i < 3; i++) {
@@ -22,6 +21,7 @@ public class Menu {
     System.out.println("");
     System.out.println(ConsoleColors.BLUE + ascii.tittle() + ConsoleColors.RESET);
     System.out.println("");
+    // Pro tip: Ascii de viado não pode faltar
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
     System.out.println("1 - Listar todas as missões");
@@ -48,7 +48,6 @@ public class Menu {
         mission.listMissions();
         break;
       case 2:
-        spinner("Ai meu cu");
         mission.openMission();
         break;
       case 3:

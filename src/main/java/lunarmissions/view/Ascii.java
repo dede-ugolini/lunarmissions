@@ -158,7 +158,7 @@ public class Ascii {
          　　˚　　　⠀　⠀  　　,　　　　　　✩.
         　　　　　　　　　　　　　.
         　　　　　　*⠀　　⠀  　　　　　⠀✦⠀　
-        　　　　　　*　　　　　https://www.youtube.com/watch?v=o5v-NS9o4yc　　　　　　　　　　　　　.
+        　　　　　　.
         　　　　.　　　　.　　　⠀
         　　　　　　　　　　　.
         　　　　　　　
