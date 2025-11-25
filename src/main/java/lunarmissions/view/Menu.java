@@ -19,7 +19,7 @@ public class Menu {
     }
 
     System.out.println("");
-    System.out.println(ConsoleColors.BLUE + ascii.tittle() + ConsoleColors.RESET);
+    //System.out.println(ConsoleColors.BLUE + ascii.tittle() + ConsoleColors.RESET);
     System.out.println("");
     // Pro tip: Ascii de viado não pode faltar
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
