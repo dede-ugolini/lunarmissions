@@ -7,6 +7,7 @@ public class Menu {
 
   private static Scanner in = new Scanner(System.in);
   MissionService mission = new MissionService();
+  Extras extras = new Extras();
 
   public void openInitalMenu() {
 
@@ -16,6 +17,8 @@ public class Menu {
       System.out.print(".");
     }
 
+    System.out.println("");
+    Extras.genImage("tittle");
     System.out.println("");
     // Pro tip: Ascii de viado não pode faltar
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
@@ -57,7 +60,6 @@ public class Menu {
         mission.handleSerializationOptions();
         break;
       case 6:
-        Extras extras = new Extras();
         extras.extras();
         break;
       case 7:
@@ -67,21 +69,6 @@ public class Menu {
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
         System.exit(1);
         break;
-    }
-  }
-
-  public static void spinner(String msg) {
-    try {
-      String[] frames = { "|", "/", "-", "\\" };
-      System.out.print(" " + msg + "   ");
-
-      for (int i = 0; i < 20; i++) {
-        System.out.print("\b" + frames[i % frames.length]);
-        Thread.sleep(150);
-      }
-      System.out.println("\b ");
-    } catch (Exception e) {
-      e.printStackTrace();
     }
   }
 
