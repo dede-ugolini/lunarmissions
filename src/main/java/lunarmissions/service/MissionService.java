@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
+import org.dizitart.no2.Nitrite;
+
 import java.io.File;
 
 import java.io.FileWriter;
@@ -29,9 +31,23 @@ public class MissionService {
     System.out.println("1 - Salvar em arquivo de texto (txt)");
     System.out.println("2 - Salvar em arquivo de binário (Object Output Stream)");
     System.out.println("3 - Salvar em banco de dados Nitrite");
+    option = in.nextInt();
+
+    switch (option) {
+      case 1:
+        writeMission();
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      default:
+        System.err.println("Opção não reconhecida");
+        break;
+    }
   }
 
-  public void writeMission() {
+  private void writeMission() {
     try {
       FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < missionsList.size(); i++) {
@@ -46,7 +62,7 @@ public class MissionService {
     }
   }
 
-  public void readMission() {
+  private void readMission() {
     try {
 
       FileReader fileReader = new FileReader(file);
@@ -61,7 +77,7 @@ public class MissionService {
     }
   }
 
-  public void clearFile() {
+  private void clearFile() {
     try {
       FileWriter fileWriter = new FileWriter(file, false);
       fileWriter.write("");
@@ -75,6 +91,9 @@ public class MissionService {
     }
   }
 
+  /**
+   * Lista as missões presentes em memória
+   */
   public void listMissions() {
     if (!missionsList.isEmpty()) {
       System.out.println("");
@@ -91,6 +110,9 @@ public class MissionService {
     }
   }
 
+  /**
+   * Gerencia opções do usario
+   */
   public void handleRemoveOptions() {
     int option = 0;
     System.out.println("Escolha uma opção para remover uma missão: UUID ou index");
@@ -113,12 +135,12 @@ public class MissionService {
     }
   }
 
-  public void removeMission(int index) {
+  private void removeMission(int index) {
     missionsList.remove(index);
     System.out.println("Missão removida!.");
   }
 
-  public void removeMission(UUID uuid) {
+  private void removeMission(UUID uuid) {
 
     for (int i = 0; i < missionsList.size(); i++) {
       if (missionsList.get(i).getID().equals(uuid)) {
@@ -128,6 +150,9 @@ public class MissionService {
     }
   }
 
+  /**
+   * Abre uma nova missão em memória
+   */
   public void openMission() {
     Mission mission = new Mission();
     System.out.println("Digite o nome da missão");
@@ -142,7 +167,7 @@ public class MissionService {
     System.out.println("Missão adicionada!");
   }
 
-  public void askSpaceShip(Mission mission) {
+  private void askSpaceShip(Mission mission) {
     System.out.println("Deseja selecionar uma nave predefinida? (y/n)");
     char answer = in.next().charAt(0);
     switch (answer) {
@@ -159,10 +184,13 @@ public class MissionService {
     }
   }
 
+  /**
+   * Lista as naves espaciais padrão
+   */
   public void listSpaceShips() {
-    System.out.println("Index\tNave Espacial\t\tDescrição");
+    System.out.println("Index\tNave Espacial\t\t\tDescrição");
     for (SpaceShip ship : SpaceShip.values()) {
-      System.out.println(ship.getIndex() + "\t" + ship.getName() + "\t" + ship.getDesc());
+      System.out.format("%-10d%-28s%-62s\n", ship.getIndex(), ship.getName(), ship.getDesc());
     }
     in.nextLine();
   }
