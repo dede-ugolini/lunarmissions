@@ -1,12 +1,28 @@
 package lunarmissions.view;
 
 public class Animations {
+
   public static void main(String[] args) {
     Animations animations = new Animations();
     animations.progressBar();
     animations.progressEta();
     animations.troughtputBar();
 
+  }
+
+  public void spinner(String msg) {
+    try {
+      String[] frames = { "|", "/", "-", "\\" };
+      System.out.print(" " + msg + "   ");
+
+      for (int i = 0; i < 20; i++) {
+        System.out.print("\b" + frames[i % frames.length]);
+        Thread.sleep(150);
+      }
+      System.out.println("\b ");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void progressEta() {
@@ -65,7 +81,7 @@ public class Animations {
       // 🚀
       for (int i = 0; i <= total; i++) {
         int percent = (i * 100) / total;
-        String bar = "=".repeat(i) + ">".repeat(i < total ? 1 : 0);
+        String bar = "=🚀".repeat(i) + "".repeat(i < total ? 1 : 0);
         String spaces = " ".repeat(total - i);
 
         System.out.printf("\r[%s%s] %3d%%", bar, spaces, percent);
@@ -89,7 +105,7 @@ public class Animations {
         double rate = i / ((System.currentTimeMillis() - start) / 1000.0 + 0.001);
 
         System.out.printf(
-            "\rProcessando: %d/%d | %.1f ops/s",
+            "\rProcessando imagem: %d/%d Gb | %.1f Gb/s",
             i, total, rate);
 
         System.out.flush();
