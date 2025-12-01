@@ -14,9 +14,11 @@ import java.util.List;
 
 import lunarmissions.standard.Mission;
 
-public class NitrateAdpter {
+public class NitriteDatabaseHandler implements DatabaseAdapter{
 
 	private static final String FILE_PATH = "database.bd";
+
+	//DocumentMapper documentMapper = new DocumentMapper();
 	
 	private static MVStoreModule storeModule;
 	private static Nitrite database;
@@ -28,13 +30,12 @@ public class NitrateAdpter {
 	private static String MISSAO_COLLECTION_NAME = "missaoCollection";
 	private static NitriteCollection missaoCollection;
 	
-	private int MISSAO_ID_COUNTER = 0;
-	
-	public NitrateAdpter() {
+	public NitriteDatabaseHandler() {
 		initNitrite();
 		
+		initDatabaseCounter();
 		//para testes
-		start();
+		//start();
 	}
 	
 	//TODO: Fazer com que o ID fique armazenado no bancoe de dados e nao na classe service
@@ -58,13 +59,7 @@ public class NitrateAdpter {
 		Document content = Document.createDocument().put("ID_COUNTER", 1).put("ID_TYPE", "MISSION_CLASS");
 		missaoCollection.insert(content);
 	}
-	
-	private int getCurrentDatabaseCounter() {
-		Document result = missaoCollection.find(where("ID_TYPE").eq("MISSION_CLASS")).firstOrNull();
-		
-		return Integer.parseInt(result.get("ID_COUNTER").toString());
-	}
-	
+	/*
 	public void create(Document document) {
 		/*
 		Document content = Document.createDocument()
@@ -73,12 +68,6 @@ public class NitrateAdpter {
 				.put("destination", missao.getDestination())
 				.put("goal", missao.getGoal())
 				.put("spaceship", missao.getSpaceShip());
-		
-		
-		content.put(MISSAO_ID_FIELD, MISSAO_ID_COUNTER);
-		missaoCollection.insert(content);
-		*/
-		missaoCollection.insert(document);
 	}
 	
 	public Document read(String field, String key) {
@@ -95,14 +84,20 @@ public class NitrateAdpter {
 		
 		missaoCollection.update(contentToUpdate);
 	}
-	*/
 	
 	public void delete(Document document) {
 		missaoCollection.remove(document);
 	}
-
+	*/
+	
 	public List<Document> getAllDocuments() {
 		return missaoCollection.find().toList();
+	}
+		
+	private int getCurrentDatabaseCounter() {
+		Document result = missaoCollection.find(where("ID_TYPE").eq("MISSION_CLASS")).firstOrNull();
+		
+		return Integer.parseInt(result.get("ID_COUNTER").toString());
 	}
 	
 	private void incrementCounter() {
@@ -132,10 +127,14 @@ public class NitrateAdpter {
 				.put("goal", missao.getGoal())
 				.put("spaceship", missao.getSpaceShip());
 		
-		create(content);
-		Document result = read("name", "TheMissionName");
-		System.out.println(result.toString());
+		System.out.println("Converting a document to a object and vice-versa");
+		Mission missao2 = DocumentMapper.toObject(content, Mission.class);
 		
+		//create(content);
+		//Document result = read("name", "TheMissionName");
+		//System.out.println(result.toString());
+		
+		/*
 		System.out.println("Deletando:");
 		System.out.println("Antes de deletar:");
 		
@@ -150,11 +149,51 @@ public class NitrateAdpter {
 		for(int x = 0; x < allDocs.size(); x++) {
 			System.out.println(allDocs.get(x));
 		}
+		*/
 		
 	}
 	
 	//Realizar os testes para poder identificar o funcionamento do banco de dados
 	public static void main(String[] args) {
-		new NitrateAdpter();
+		new NitriteDatabaseHandler();
+	}
+
+	@Override
+	public void create(Object o) {
+		// TODO Auto-generated method stub
+		Document content = DocumentMapper.toDocument(o);
+		content.put(MISSAO_ID_FIELD, getCurrentDatabaseCounter());
+		missaoCollection.insert(content);
+		
+		missaoCollection.insert(content);
+		incrementCounter();
+	}
+
+	@Override
+	public String read(String field, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Object o, String field, String key) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Object o) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public String listAll() {
+		return getAllDocuments().toString();
+	} 
+	
+	@Override
+	public void resetDatabase() {
+		
 	}
 }
