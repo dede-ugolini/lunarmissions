@@ -15,7 +15,7 @@ public enum SpaceShip {
    * chave para a vitória da Aliança Rebelde Contra o Império em
    * muitas batalhas
    */
-  MILLENIUM_FALCON(2, "Millenium Falcon", ""),
+  MILLENIUM_FALCON(2, "Millenium Falcon", "Nave pilotada por Han Solo e pelo fucking Chewbacca"),
   /**
    * A lendária Estrela da Morte do lendário Darth Vader
    */
@@ -24,21 +24,21 @@ public enum SpaceShip {
    * Uma das naves mais memóraveis graças ao seu formato característico,
    * pilotada pelo lendário caçador de recompensas Boba Fett
    */
-  SLAVE_I(4, "Slave I", ""),
-
+  SLAVE_I(4, "Slave I",
+      "Memorável pelo seu formato incônico"),
   /**
    * Uma família de naves espaciais utilizado pela Alinça Rebelde,
    * com espaço para um piloto, se destaca pela velocidade e agilidade,
    * o modelo T-65B foi pilotado por ninguem menos que Luke Skywalker o filho de
    * Dath Vader
    */
-  X_WING(5, "X-Wing", ""),
+  X_WING(5, "X-Wing", "Nave clássica da Aliança Rebelde"),
   /**
    * É característico caça do Império, com seu design ameaçador
    * assusta qualquer rebelde que vê o Império se aproxiamando com tamanho poder
    * bélico
    */
-  TIE_FIGHTER(6, "Tie Fighter", ""),
+  TIE_FIGHTER(6, "Tie Fighter", "Clássico caça do Império"),
   BATWING(7, "Batwing", "");
 
   private final int index;
