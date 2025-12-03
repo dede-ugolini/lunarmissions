@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Menu {
 
   private static Scanner in = new Scanner(System.in);
-  MissionService mission = new MissionService();
+  MissionService mission = new MissionService(0);
   Extras extras = new Extras();
 
   public void openInitalMenu() {
@@ -18,16 +18,10 @@ public class Menu {
     }
 
     System.out.println("");
-<<<<<<< HEAD
-<<<<<<< HEAD
-    //System.out.println(ConsoleColors.BLUE + ascii.tittle() + ConsoleColors.RESET);
-    System.out.println("");
-=======
->>>>>>> 4e8b1bc54c62442b074cbd2eec2661381dde6220
-=======
+    // System.out.println(ConsoleColors.BLUE + ascii.tittle() +
+    // ConsoleColors.RESET);
     Extras.genImage("tittle");
     System.out.println("");
->>>>>>> master
     // Pro tip: Ascii de viado não pode faltar
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
