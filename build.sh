@@ -6,6 +6,7 @@
 echo "Compilando o projeto..."
 mvn package -q 2>/dev/null
 if [ $? -ne 0 ]; then
+  echo ""
   echo "Erro na compilação. Verifique os erros acima."
   exit 1
 fi
