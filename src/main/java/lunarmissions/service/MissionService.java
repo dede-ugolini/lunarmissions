@@ -3,6 +3,8 @@ package lunarmissions.service;
 import lunarmissions.standard.*;
 import lunarmissions.view.*;
 
+import lunarmissions.service.DatabaseAdapter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -29,7 +31,10 @@ public class MissionService {
 	private static ArrayList<Mission> missionsList = new ArrayList<Mission>();
 	Scanner in = new Scanner(System.in);
 
+	DatabaseAdapter database;
+	
 	NitriteDatabaseHandler nitriteDatabase;
+	BinaryDatabaseHandler binaryDatabase;
 	
 	static File file = new File("/home/dede/code/algoritmos/2025.02/lunarmissions/log.txt");
 
@@ -40,11 +45,16 @@ public class MissionService {
 		initDatabaseMode();
 	}
 	
+	public MissionService() {
+		setDatabaseType(DATABASE_NITRITE_FORMAT);
+		initDatabaseMode();
+	}
+	
 	//Inicializa o tipo de sistema que irá ter acesso ao banco de dados
 	private void initDatabaseMode() {
 		if (getDatabaseType() == DATABASE_NITRITE_FORMAT) {
 			nitriteDatabase = new NitriteDatabaseHandler();
-			//DatabaseHandler = nitriteDatabase.attachAdpater();
+			database = nitriteDatabase;
 		}
 		else if (getDatabaseType() == DATABASE_BINARY_FORMAT) {
 			System.out.println("TODO: IMPLEMENT THE BINARY DATABASE FORMAT AND INITIALIZE IT");

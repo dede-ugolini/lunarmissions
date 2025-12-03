@@ -33,8 +33,10 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	public NitriteDatabaseHandler() {
 		initNitrite();
 		
-		initDatabaseCounter();
-		//para testes
+		if(getCurrentDatabaseCounter() == 0) {
+			initDatabaseCounter();
+		}
+		//para testesssss
 		//start();
 	}
 	
@@ -172,7 +174,7 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	@Override
 	public String read(String field, String key) {
 		// TODO Auto-generated method stub
-		return null;
+		return getCollection().find(where(field).eq(key)).toList().toString();
 	}
 
 	@Override
@@ -184,7 +186,10 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	@Override
 	public void delete(Object o) {
 		// TODO Auto-generated method stub
-		
+		Document docToRemove = DocumentMapper.toDocument(o);
+		if (docToRemove != null) {
+			getCollection().remove(docToRemove);
+		}
 	}
 	
 	@Override
@@ -195,5 +200,9 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	@Override
 	public void resetDatabase() {
 		
+	}
+	
+	public NitriteCollection getCollection() {
+		return this.missaoCollection;
 	}
 }
