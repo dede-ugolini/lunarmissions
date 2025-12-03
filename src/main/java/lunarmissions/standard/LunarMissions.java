@@ -4,11 +4,6 @@ import lunarmissions.view.Menu;
 
 public class LunarMissions {
 
-  public void listDefaultSpaceShips() {
-    for (SpaceShip e : SpaceShip.values())
-      System.out.println(e);
-  }
-
   public void start() {
     while (true) {
       Menu menu = new Menu();
