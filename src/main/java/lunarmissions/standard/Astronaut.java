@@ -3,7 +3,7 @@ package lunarmissions.standard;
 /**
  * Representa o participante da missão que contem informações
  * como nome, nave tripulada etc.
- * 
+ *
  * @see SpaceShip
  */
 
@@ -13,6 +13,16 @@ public class Astronaut {
   private SpaceShip spaceShip;
   private int age;
   private int hours;
+
+  Astronaut() {
+  }
+
+  Astronaut(String name, SpaceShip spaceShip, int age, int hours) {
+    this.name = name;
+    this.spaceShip = spaceShip;
+    this.age = age;
+    this.hours = hours;
+  }
 
   /**
    * Retorna o nome completo do astronauta.
