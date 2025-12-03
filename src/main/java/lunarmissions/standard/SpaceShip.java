@@ -1,5 +1,4 @@
 package lunarmissions.standard;
-// TODO adicionar mais algumas naves e descrição a elas
 
 /**
  * Armazena alguns modelos lendários de naves espaciais
@@ -57,7 +56,8 @@ public enum SpaceShip {
    * e arsenal tático. Costuma ser empregada em missões urbanas e operações
    * de vigilância aérea em Gotham.
    */
-  BATWING(7, "Batwing", "Aeronave tática avançada utilizada pelo Batman");
+  BATWING(7, "Batwing", "Aeronave tática avançada utilizada pelo Batman"),
+  DISCOVERY(8, "Discovery", "Onibus espacial");
 
   private final int index;
   private final String name;
