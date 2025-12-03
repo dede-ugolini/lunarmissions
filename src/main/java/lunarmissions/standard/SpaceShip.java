@@ -6,8 +6,19 @@ package lunarmissions.standard;
  */
 public enum SpaceShip {
 
-  PIONEER(0, "Pioneer 0", ""),
-  PIONEER_1(1, "Pioneer 1", ""),
+  /**
+   * Primeira série de sondas espaciais americanas projetadas para estudar
+   * a Lua. A Pioneer 0 representou uma das primeiras tentativas dos EUA
+   * de alcançar o espaço profundo durante a era inicial da corrida espacial.
+   */
+  PIONEER(0, "Pioneer 0", "Primeira tentativa americana de enviar uma sonda lunar"),
+  /**
+   * Continuação do programa Pioneer, lançada com o objetivo de atingir a
+   * órbita lunar e coletar dados científicos. Embora não tenha alcançado
+   * a órbita esperada, forneceu informações importantes sobre o espaço
+   * além da atmosfera terrestre.
+   */
+  PIONEER_1(1, "Pioneer 1", "Sonda do programa Pioneer destinada ao estudo da Lua"),
 
   /**
    * A lendaria Millenium Falcon dos Star Wars pilotada por Han Solo
@@ -39,7 +50,14 @@ public enum SpaceShip {
    * bélico
    */
   TIE_FIGHTER(6, "Tie Fighter", "Clássico caça do Império"),
-  BATWING(7, "Batwing", "");
+  /**
+   * Aeronave icônica do Batman, utilizada em diversas histórias, filmes
+   * e animações. Projeta uma silhueta intimidadora em formato de morcego,
+   * equipada com tecnologia avançada, sistemas de voo de alta manobrabilidade
+   * e arsenal tático. Costuma ser empregada em missões urbanas e operações
+   * de vigilância aérea em Gotham.
+   */
+  BATWING(7, "Batwing", "Aeronave tática avançada utilizada pelo Batman");
 
   private final int index;
   private final String name;
@@ -51,6 +69,12 @@ public enum SpaceShip {
     this.desc = desc;
   }
 
+  /**
+   * Retorna o nome da nave espacial a partir do index.
+   *
+   * @param index da nave espacial.
+   * @return o nome da nave espacial.
+   */
   public static String fromIndex(int index) {
     for (SpaceShip ship : SpaceShip.values()) {
       if (ship.getIndex() == index) {
@@ -60,19 +84,37 @@ public enum SpaceShip {
     return null;
   }
 
+  /**
+   * Retorna o index da nave espacial.
+   *
+   * @return o index da nave espacial.
+   */
   public int getIndex() {
     return index;
   }
 
+  /**
+   * Retorna o nome da nave espacial.
+   *
+   * @return o nome da nave espacial.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Retorna a descrição da nave nspacial
+   *
+   * @return a descrição da nave espacial.
+   */
   public String getDesc() {
     return desc;
 
   }
 
+  /**
+   * Lista as naves especiais padrões.
+   */
   public static void listSpaceShips() {
     System.out.println("Index\tNave Espacial\t\tDescrição");
     for (SpaceShip ship : SpaceShip.values()) {
