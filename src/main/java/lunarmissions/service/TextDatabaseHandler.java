@@ -9,7 +9,9 @@ import lunarmissions.view.*;
 
 public class TextDatabaseHandler implements DatabaseAdapter {
 
-  private static File file = new File("resources/database/MissionDatabaseText.txt");
+  // FIX: Dessa forma não vai encontrar o arquivo, preciso passar como resource
+  // e creio que preciso fazer diferente que o metodo loadResource.
+  private static File file = new File("/database/MissionDatabaseText.txt");
   /*
    * public String read(int qtd) {
    * int ns = 0;
