@@ -9,19 +9,22 @@ por exemplo o famoso foguetinho 🚀. [Nerd Fonts](https://www.nerdfonts.com/)
 
 ## Executar o Projeto
 
-### 1. Compilar o projeto
+### 1
+
+### Linux
+
+Primeiro, altere as permissões do arquivo `build.sh` para poder executar o script.
 
 ```sh
-mvn compile
+chmod +x build.sh
 ```
 
-### 2. Compilar sem gerar jar file
+Execute o arquivo de build:
 
-```sh
-mvn exec:java -Dexec.mainClass="lunarmissions.standard.LunarMissions"
-```
+``sh
+./build.sh
 
-### 3. Gerar jar file
+### Caso não funcione por script
 
 ```sh
 mvn package
