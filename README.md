@@ -9,8 +9,6 @@ por exemplo o famoso foguetinho 🚀. [Nerd Fonts](https://www.nerdfonts.com/)
 
 ## Executar o Projeto
 
-### 1
-
 ### Linux
 
 Primeiro, altere as permissões do arquivo `build.sh` para poder executar o script.
