@@ -1,22 +1,25 @@
 package lunarmissions.view;
 
 import lunarmissions.service.MissionService;
+import lunarmissions.standard.SpaceShip;
+
 import java.util.Scanner;
 import java.util.UUID;
 
 public class Menu {
 
   private static Scanner in = new Scanner(System.in);
-  MissionService mission = new MissionService(0);
-  Extras extras = new Extras();
+  private MissionService mission = new MissionService(0);
+  private Extras extras = new Extras();
 
   public void openInitalMenu() {
-
-    System.out.print("Processando");
-    for (int i = 0; i < 3; i++) {
-      delay(1000);
-      System.out.print(".");
-    }
+    /*
+     * System.out.print("Processando");
+     * for (int i = 0; i < 3; i++) {
+     * delay(1000);
+     * System.out.print(".");
+     * }
+     */
 
     System.out.println("");
     // System.out.println(ConsoleColors.BLUE + ascii.tittle() +
@@ -37,7 +40,7 @@ public class Menu {
     handleOptions();
   }
 
-  public void handleOptions() {
+  private void handleOptions() {
     int option = 0;
     option = in.nextInt();
 
@@ -57,7 +60,7 @@ public class Menu {
         handleRemoveOptions();
         break;
       case 4:
-        mission.listSpaceShips();
+        SpaceShip.listSpaceShips();
         break;
       case 5:
         mission.handleSerializationOptions();
@@ -74,6 +77,9 @@ public class Menu {
         break;
     }
   }
+  // TODO: Modulazizar melhor o projeto, a class MissionService está com muitos
+  // metódos que não fazem sentido
+  // ao seu propósito.
 
   public void handleRemoveOptions() {
     int option = 0;
@@ -81,19 +87,22 @@ public class Menu {
     System.out.println("1 - Index");
     System.out.println("2 - UUID");
     option = in.nextInt();
+
     switch (option) {
       case 1:
+        System.out.println("Digite o index:");
         System.out.println();
-        mission.removeMission(in.nextInt());
+        mission.remove(in.nextInt());
         break;
       case 2:
         System.out.println("Digite o uuid:");
         String uuid = null;
-        uuid = in.next();
-        mission.removeMission(UUID.fromString(uuid));
+        uuid = in.nextLine();
+        // FIX: Não está funcionando remoção por UUID
+        mission.remove(UUID.fromString(uuid));
         break;
       default:
-        System.err.println("Opção não reconhecida");
+        System.err.println(ConsoleColors.RED + "Opção não reconhecida" + ConsoleColors.RESET);
     }
   }
 
