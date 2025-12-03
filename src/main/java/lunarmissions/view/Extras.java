@@ -154,7 +154,7 @@ public class Extras {
 
   public static void genImage(String image) {
     try {
-      String ascii = loadResource("/resources/" + image + ".txt");
+      String ascii = loadResource("/" + image + ".txt");
       System.out.println(ascii);
     } catch (Exception e) {
       e.printStackTrace();
