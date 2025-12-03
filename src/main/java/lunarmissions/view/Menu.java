@@ -2,6 +2,7 @@ package lunarmissions.view;
 
 import lunarmissions.service.MissionService;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Menu {
 
@@ -53,7 +54,7 @@ public class Menu {
         mission.openMission();
         break;
       case 3:
-        mission.handleRemoveOptions();
+        handleRemoveOptions();
         break;
       case 4:
         mission.listSpaceShips();
@@ -71,6 +72,28 @@ public class Menu {
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
         System.exit(1);
         break;
+    }
+  }
+
+  public void handleRemoveOptions() {
+    int option = 0;
+    System.out.println("Escolha uma opção para remover uma missão: UUID ou index");
+    System.out.println("1 - Index");
+    System.out.println("2 - UUID");
+    option = in.nextInt();
+    switch (option) {
+      case 1:
+        System.out.println();
+        mission.removeMission(in.nextInt());
+        break;
+      case 2:
+        System.out.println("Digite o uuid:");
+        String uuid = null;
+        uuid = in.next();
+        mission.removeMission(UUID.fromString(uuid));
+        break;
+      default:
+        System.err.println("Opção não reconhecida");
     }
   }
 
