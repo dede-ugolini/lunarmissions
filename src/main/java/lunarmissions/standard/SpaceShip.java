@@ -70,5 +70,13 @@ public enum SpaceShip {
 
   public String getDesc() {
     return desc;
+
+  }
+
+  public static void listSpaceShips() {
+    System.out.println("Index\tNave Espacial\t\tDescrição");
+    for (SpaceShip ship : SpaceShip.values()) {
+      System.out.format("%-10d%-22s%-64s\n", ship.getIndex(), ship.getName(), ship.getDesc());
+    }
   }
 }
