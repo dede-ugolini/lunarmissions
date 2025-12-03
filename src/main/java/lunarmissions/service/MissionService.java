@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-import org.dizitart.no2.Nitrite;
-
 import java.io.File;
 
 import java.io.FileWriter;
@@ -130,34 +128,12 @@ public class MissionService {
     }
   }
 
-  public void handleRemoveOptions() {
-    int option = 0;
-    System.out.println("Escolha uma opção para remover uma missão: UUID ou index");
-    System.out.println("1 - Index");
-    System.out.println("2 - UUID");
-    option = in.nextInt();
-    switch (option) {
-      case 1:
-        System.out.println();
-        removeMission(in.nextInt());
-        break;
-      case 2:
-        System.out.println("Digite o uuid:");
-        String uuid = null;
-        uuid = in.next();
-        removeMission(UUID.fromString(uuid));
-        break;
-      default:
-        System.err.println("Opção não reconhecida");
-    }
-  }
-
-  public void removeMission(int index) {
+  public void remove(int index) {
     missionsList.remove(index);
     System.out.println("Missão removida!.");
   }
 
-  public void removeMission(UUID uuid) {
+  public void remove(UUID uuid) {
 
     for (int i = 0; i < missionsList.size(); i++) {
       if (missionsList.get(i).getID().equals(uuid)) {
@@ -167,6 +143,7 @@ public class MissionService {
     }
   }
 
+  // TODO: Adicionar um sanitizer para nome e etc
   public void openMission() {
     Mission mission = new Mission();
     System.out.println("Digite o nome da missão");
@@ -186,7 +163,7 @@ public class MissionService {
     char answer = in.next().charAt(0);
     switch (answer) {
       case 'y':
-        listSpaceShips();
+        SpaceShip.listSpaceShips();
         System.out.println("\nSelecione uma nave pelo index");
         break;
       case 'n':
@@ -196,14 +173,6 @@ public class MissionService {
       default:
         System.err.println("\"" + answer + "\" Não é uma reconhecida");
     }
-  }
-
-  public void listSpaceShips() {
-    System.out.println("Index\tNave Espacial\t\tDescrição");
-    for (SpaceShip ship : SpaceShip.values()) {
-      System.out.println(ship.getIndex() + "\t" + ship.getName() + "\t" + ship.getDesc());
-    }
-    in.nextLine();
   }
 
   public void setDatabaseType(int databaseType) {
