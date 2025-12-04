@@ -3,6 +3,8 @@ package lunarmissions.service;
 import lunarmissions.standard.*;
 import lunarmissions.view.*;
 
+import lunarmissions.service.DatabaseAdapter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;

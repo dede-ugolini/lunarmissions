@@ -65,7 +65,12 @@ public class DatabaseTester {
 		DatabaseAdapter db = new NitriteDatabaseHandler();
 		db.create(DocumentMapper.toDocument(content));
 		
-	
+		String theReadValue = db.read("name", missao.getName());
+		System.out.println("O valor lido: " + theReadValue);
+		
+		System.out.println("");
+		
+		System.out.println("Listando tudo");
 		System.out.println(db.listAll());
 	}
 	
