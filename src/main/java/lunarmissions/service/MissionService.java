@@ -3,18 +3,11 @@ package lunarmissions.service;
 import lunarmissions.standard.*;
 import lunarmissions.view.*;
 
-import lunarmissions.service.DatabaseAdapter;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
 import java.io.File;
-
-import java.io.FileWriter;
-import java.io.FileReader;
-
-import java.io.BufferedReader;
 
 /**
  * Fornece metodos para gerenciar missões
@@ -103,7 +96,6 @@ public class MissionService {
     }
   }
 
-  // TODO: Adicionar um sanitizer para nome e etc
   public void openMission() {
 
     String name = setNameMission();
