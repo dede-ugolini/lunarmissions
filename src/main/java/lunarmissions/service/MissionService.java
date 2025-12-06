@@ -155,7 +155,7 @@ public class MissionService {
     System.out.println("Digite o objetivo da missão");
     mission.setGoal(in.nextLine());
     askSpaceShip(mission);
-    mission.setSpaceShip(SpaceShip.fromIndex(in.nextInt()));
+    mission.setSpaceShip(Standards.SpaceShip.fromIndex(in.nextInt()));
     missionsList.add(mission);
     System.out.println("Missão adicionada!");
   }
@@ -165,7 +165,7 @@ public class MissionService {
     char answer = in.next().charAt(0);
     switch (answer) {
       case 'y':
-        SpaceShip.listSpaceShips();
+        Standards.SpaceShip.listSpaceShips();
         System.out.println("\nSelecione uma nave pelo index");
         break;
       case 'n':

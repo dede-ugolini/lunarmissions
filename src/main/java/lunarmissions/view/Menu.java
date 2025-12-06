@@ -1,7 +1,7 @@
 package lunarmissions.view;
 
 import lunarmissions.service.MissionService;
-import lunarmissions.standard.SpaceShip;
+import lunarmissions.standard.*;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -56,7 +56,7 @@ public class Menu {
         handleRemoveOptions();
         break;
       case 4:
-        SpaceShip.listSpaceShips();
+        Standards.SpaceShip.listSpaceShips();
         break;
       case 5:
         mission.handleSerializationOptions();
