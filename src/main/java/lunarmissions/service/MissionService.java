@@ -105,22 +105,131 @@ public class MissionService {
 
   // TODO: Adicionar um sanitizer para nome e etc
   public void openMission() {
-    Mission mission = new Mission();
-    System.out.println("Digite o nome da missão");
-    mission.setName(astronautService.setNameAstronaut());
-    System.out.println("Digite o destino");
-    mission.setDestination(in.nextLine());
-    System.out.println("Digite o objetivo da missão");
-    mission.setGoal(in.nextLine());
-    askSpaceShip(mission);
-    mission.setSpaceShip(Standards.SpaceShip.fromIndex(in.nextInt()));
+
+    String name = setNameMission();
+
+    String destination = setDestinationMission();
+
+    String goal = setGoalMission();
+
+    askSpaceShip();
+
+    String spaceShip = setSpaceShipMission();
+    Mission mission = new Mission(name, destination, goal, spaceShip);
     missionsList.add(mission);
     System.out.println("Missão adicionada!");
   }
 
-  public void askSpaceShip(Mission mission) {
+  public String setNameMission() {
+    final int MAX_TENTATIVAS = 3;
+    int tentativas = MAX_TENTATIVAS;
+
+    while (tentativas > 0) {
+      System.out.println("Digite o nome da missão:");
+      String name = in.nextLine().trim();
+
+      if (name.isEmpty()) {
+        System.err.println(ConsoleColors.RED + "Nome não pode ser vazio." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      if (name.length() < 5) {
+        System.err.println(ConsoleColors.RED + "Nome muito curto." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      if (!name.matches("^[A-Za-z0-9 ]{5,}$")) {
+        System.err.println(
+            ConsoleColors.RED + "Nome não pode conter caracteres especiais." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      return name;
+    }
+
+    throw new RuntimeException(ConsoleColors.RED + "Máximo de tentativas atingido." + ConsoleColors.RESET);
+  }
+
+  public String setDestinationMission() {
+    final int MAX_TENTATIVAS = 3;
+    int tentativas = MAX_TENTATIVAS;
+
+    while (tentativas > 0) {
+      System.out.println("Digite o destino da missão:");
+      String name = in.nextLine().trim();
+
+      if (name.isEmpty()) {
+        System.err.println(ConsoleColors.RED + "Nome do destino não pode ser vazio." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      if (name.length() < 3) {
+        System.err.println(ConsoleColors.RED + "Nome do destino muito curto." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      if (!name.matches("^[A-Za-z0-9 ]{3,}$")) {
+        System.err.println(
+            ConsoleColors.RED + "Nome do destino não pode conter número e nem caracteres especiais."
+                + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      return name;
+    }
+
+    throw new RuntimeException(ConsoleColors.RED + "Máximo de tentativas atingido." + ConsoleColors.RESET);
+  }
+
+  public String setGoalMission() {
+    final int MAX_TENTATIVAS = 3;
+    int tentativas = MAX_TENTATIVAS;
+
+    while (tentativas > 0) {
+      System.out.println("Digite o objetivo da missão:");
+      String name = in.nextLine().trim();
+
+      if (name.isEmpty()) {
+        System.err.println(ConsoleColors.RED + "Objetivo não pode ser vazio." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      if (name.length() < 8) {
+        System.err.println(ConsoleColors.RED + "Objetivo muito curto." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      if (!name.matches("^[A-Za-z0-9 ]{5,}$")) {
+        System.err.println(
+            ConsoleColors.RED + "Objetivo não pode conter caracteres especiais." + ConsoleColors.RESET);
+        tentativas--;
+        continue;
+      }
+
+      return name;
+    }
+
+    throw new RuntimeException(ConsoleColors.RED + "Máximo de tentativas atingido." + ConsoleColors.RESET);
+  }
+
+  public String setSpaceShipMission() {
+    String spaceShip;
+    spaceShip = Standards.SpaceShip.fromIndex(in.nextInt());
+    return spaceShip;
+  }
+
+  public String askSpaceShip() {
     System.out.println("Deseja selecionar uma nave predefinida? (y/n)");
     char answer = in.next().charAt(0);
+    String spaceShip = null;
     switch (answer) {
       case 'y':
         Standards.SpaceShip.listSpaceShips();
@@ -128,11 +237,12 @@ public class MissionService {
         break;
       case 'n':
         System.out.println("Digite o seu modelo pessoal de nave");
-        mission.setSpaceShip(in.nextLine());
+        spaceShip = in.nextLine();
         break;
       default:
-        System.err.println("\"" + answer + "\" Não é uma reconhecida");
+        Extras.optionNoRecognized(answer);
     }
+    return spaceShip;
   }
 
   public void setDatabaseType(int databaseType) {

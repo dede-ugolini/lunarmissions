@@ -14,6 +14,9 @@ public class Mission implements Serializable {
   private String goal;
   private String spaceShip;
 
+  public Mission() {
+  }
+
   /**
    * Cria uma nova missão com nome, destino, objetivo e nave espacial associados.
    *
