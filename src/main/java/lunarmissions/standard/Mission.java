@@ -15,63 +15,96 @@ public class Mission implements Serializable {
   private String spaceShip;
 
   /**
-   * @return
+   * Cria uma nova missão com nome, destino, objetivo e nave espacial associados.
+   *
+   * @param name        nome da missão.
+   * @param destination destino da missão.
+   * @param goal        objetivo da missão.
+   * @param spaceShip   nave espacial utilizada na missão.
+   */
+  public Mission(String name, String destination, String goal, String spaceShip) {
+    this.name = name;
+    this.destination = destination;
+    this.goal = goal;
+    this.spaceShip = spaceShip;
+  }
+
+  /**
+   * Retorna o uuid da missão.
+   *
+   * @return o uuid da missão
    */
   public UUID getID() {
     return uuid;
   }
 
   /**
-   * @return
+   * Retorna a nave espacial da missão.
+   *
+   * @return a nave espacial da missão.
    */
   public String getSpaceShip() {
     return spaceShip;
   }
 
   /**
-   * @param spaceShip
+   * Define a nave espacial da missão.
+   *
+   * @param spaceShip nave espacial a ser utilizada na missão.
    */
   public void setSpaceShip(String spaceShip) {
     this.spaceShip = spaceShip;
   }
 
   /**
-   * @return
+   * Retorna o objetivo da missão.
+   *
+   * @return o objetivo da missão.
    */
   public String getGoal() {
     return goal;
   }
 
   /**
-   * @param goal
+   * Define o objetivo da missão.
+   *
+   * @param goal o objetivo a ser definido para a missão.
    */
   public void setGoal(String goal) {
     this.goal = goal;
   }
 
   /**
-   * @return
+   * Retorna o destino da missão.
+   *
+   * @return o destino da missão.
    */
   public String getDestination() {
     return destination;
   }
 
   /**
-   * @param destination
+   * Define o destino da missão.
+   *
+   * @param destination destino a ser definido para a missão.
    */
   public void setDestination(String destination) {
     this.destination = destination;
   }
 
   /**
-   * @return
+   * Retorna o nome da missão.
+   *
+   * @return o nome da missão.
    */
   public String getName() {
     return name;
   }
 
   /**
-   * @param name
+   * Define o nome da missão.
+   *
+   * @param name nome a ser definido para a missão.
    */
   public void setName(String name) {
     this.name = name;
