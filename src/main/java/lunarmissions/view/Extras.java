@@ -165,17 +165,16 @@ public class Extras {
     System.out.println("Deseja dar zoom (y/n)");
   }
 
-  // TODO: Corrigir o output
   public static void optionNoRecognized(String option) {
-    System.out.println(/* '"' + option + '"' + */"não é uma opção reconhecida.");
+    System.out.println("\"" + option + "\" não é uma opção reconhecida.");
   }
 
   public static void optionNoRecognized(char option) {
-    System.out.println(/* '"' + option + '"' + */" não é uma opção reconhecida.");
+    System.out.println("\"" + option + "\" não é uma opção reconhecida.");
   }
 
   public static void optionNoRecognized(int option) {
-    System.out.println(/* '"' + option + '"' + */"não é uma opção reconhecida.");
+    System.out.println("\"" + option + "\" não é uma opção reconhecida.");
   }
 
 }
