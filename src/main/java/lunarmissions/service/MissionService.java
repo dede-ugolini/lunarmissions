@@ -24,9 +24,11 @@ public class MissionService {
   private static final int DATABASE_BINARY_FORMAT = 0;
   private static final int DATABASE_NITRITE_FORMAT = 1;
 
+  private static final Inputs inputs = new Inputs();
   private int databaseType = 0;
 
   private static ArrayList<Mission> missionsList = new ArrayList<Mission>();
+  private static AstronautService astronautService = new AstronautService();
   Scanner in = new Scanner(System.in);
 
   NitriteDatabaseHandler nitriteDatabase;
@@ -70,50 +72,6 @@ public class MissionService {
     }
   }
 
-  public void writeMission() {
-    try {
-      FileWriter fileWriter = new FileWriter(file, true);
-      for (int i = 0; i < missionsList.size(); i++) {
-        fileWriter.write(missionsList.get(i).toString() + "\n");
-      }
-      fileWriter.flush();
-      fileWriter.close();
-      System.out.println("Salvo usando FileWriter");
-    } catch (Exception e) {
-      System.err.println("Erro em escrever com FileWriter :" + e.getMessage());
-      e.printStackTrace();
-    }
-  }
-
-  public void readMission() {
-    try {
-
-      FileReader fileReader = new FileReader(file);
-      BufferedReader reader = new BufferedReader(fileReader);
-      String line;
-      while ((line = reader.readLine()) != null) {
-        System.out.println(line);
-      }
-      reader.close();
-    } catch (Exception e) {
-      System.err.println("Erro em fileReader:" + e.getMessage());
-    }
-  }
-
-  public void clearFile() {
-    try {
-      FileWriter fileWriter = new FileWriter(file, false);
-      fileWriter.write("");
-      fileWriter.flush();
-      fileWriter.close();
-      System.out.println(ConsoleColors.GREEN + "Arquivo limpado com sucesso!" + ConsoleColors.RESET);
-    } catch (Exception e) {
-      System.err.println(ConsoleColors.RED + "Erro ao limpar o conteúdo do arquivo: " + e.getMessage()
-          + ConsoleColors.RESET);
-      e.printStackTrace();
-    }
-  }
-
   public void listMissions() {
     if (!missionsList.isEmpty()) {
       System.out.println("");
@@ -149,7 +107,7 @@ public class MissionService {
   public void openMission() {
     Mission mission = new Mission();
     System.out.println("Digite o nome da missão");
-    mission.setName(in.nextLine());
+    mission.setName(astronautService.setNameAstronaut());
     System.out.println("Digite o destino");
     mission.setDestination(in.nextLine());
     System.out.println("Digite o objetivo da missão");
