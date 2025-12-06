@@ -1,5 +1,6 @@
 package lunarmissions.view;
 
+import lunarmissions.service.AstronautService;
 import lunarmissions.service.MissionService;
 import lunarmissions.standard.*;
 
@@ -13,6 +14,7 @@ public class Menu {
   private Extras extras = new Extras();
 
   public void openInitalMenu() {
+
     /*
      * System.out.print("Processando");
      * for (int i = 0; i < 3; i++) {
@@ -20,8 +22,9 @@ public class Menu {
      * System.out.print(".");
      * }
      */
-
-    System.out.println("");
+    System.out.println(ConsoleColors.BLUE);
+    Extras.genImage("tittle");
+    System.out.println(ConsoleColors.RESET);
     // Pro tip: Ascii de viado não pode faltar
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
@@ -32,6 +35,8 @@ public class Menu {
     System.out.println("5 - Serialização");
     System.out.println("6 - Extras");
     System.out.println("7 - Limpar terminal");
+    System.out.println("8 - Adicionar Astronauta");
+    System.out.println("9 - Listar Astronautas");
     System.out.println("0 - Para sair do sistema");
     handleOptions();
   }
@@ -67,8 +72,17 @@ public class Menu {
       case 7:
         System.out.print(ConsoleColors.CLEAR);
         break;
+      case 8:
+        AstronautService astronautService = new AstronautService();
+        astronautService.addAstronaut();
+        break;
+      case 9:
+        AstronautService astronautService2 = new AstronautService();
+        astronautService2.listAstronauts();
+        break;
       default:
         System.out.println("\"" + option + "\" não é uma opção reconhecida");
+        Extras.optionNoRecognized(option);
         System.exit(1);
         break;
     }
