@@ -6,31 +6,25 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import lunarmissions.standard.*;
 import lunarmissions.view.*;
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 
 public class TextDatabaseHandler implements DatabaseAdapter {
 
   // FIX: Dessa forma não vai encontrar o arquivo, preciso passar como resource
   // e creio que preciso fazer diferente que o metodo loadResource.
-  private static File file = new File("/database/MissionDatabaseText.txt");
-  /*
-   * public String read(int qtd) {
-   * int ns = 0;
-   * try {
-   * FileReader fileReader = new FileReader(file);
-   * BufferedReader reader = new BufferedReader(fileReader);
-   * String line;
-   * while ((line = reader.readLine()) != null) {
-   * if (line.contains("\n")) {
-   * ns++;
-   * if (ns == qtd);
-   * }
-   * }
-   * } catch (Exception e) {
-   * System.err.println("Erro ao tentar ler o arquivo de texto: " +
-   * e.getMessage());
-   * }
-   * }
-   */
+
+  private static File file = new File("MissionDatabaseText.txt");
+
+  private static URI loadResource() {
+    try {
+      URI path = Extras.loadResourceAsPath("/database/MissionDatabaseText.txt");
+      return path;
+    } catch (Exception e) {
+      throw new RuntimeException("Falha ao carregar o banco de dados TXT");
+    }
+  }
 
   public String read(String field, String key) {
     String result;
