@@ -36,6 +36,13 @@ public class MissionService {
     initDatabaseMode();
   }
 
+  public ArrayList<Mission> getMissions() {
+    if (!missionsList.isEmpty()) {
+      return missionsList;
+    }
+    throw new NullPointerException("Não existem missões ainda");
+  }
+
   // Inicializa o tipo de sistema que irá ter acesso ao banco de dados
   private void initDatabaseMode() {
     if (getDatabaseType() == DATABASE_NITRITE_FORMAT) {
@@ -45,23 +52,6 @@ public class MissionService {
       System.out.println("TODO: IMPLEMENT THE BINARY DATABASE FORMAT AND INITIALIZE IT");
       // initBinary();
       // DatabaseHandler = binaryAdpter.attachAdapter();
-    }
-  }
-
-  public void handleSerializationOptions() {
-    int option = 0;
-    System.out.println("1 - Salvar em arquivo de texto (txt)");
-    System.out.println("2 - Salvar em arquivo de binário (Object Output Stream)");
-    System.out.println("3 - Salvar em banco de dados Nitrite");
-
-    option = in.nextInt();
-
-    switch (option) {
-
-      case 1:
-        TextDatabaseHandler textDatabaseHandler = new TextDatabaseHandler();
-        textDatabaseHandler.create(missionsList);
-        break;
     }
   }
 
