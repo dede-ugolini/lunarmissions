@@ -10,7 +10,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URL;
 
-public class TextDatabaseHandler implements DatabaseAdapter {
+public class TextDatabaseHandler {
 
   // FIX: Dessa forma não vai encontrar o arquivo, preciso passar como resource
   // e creio que preciso fazer diferente que o metodo loadResource.
@@ -35,10 +35,12 @@ public class TextDatabaseHandler implements DatabaseAdapter {
         if (token.contains(field) && token.contains(key)) {
           result = token;
           System.out.println("Contains " + field + "and contains " + key);
+          System.out.println(result);
           in.close();
           return result;
         }
       }
+      System.err.println("Não foi possível encontrar " + field + " e nem " + key);
       return null;
     } catch (Exception e) {
       e.printStackTrace();
@@ -75,7 +77,7 @@ public class TextDatabaseHandler implements DatabaseAdapter {
     try {
       FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < missionsList.size(); i++) {
-        fileWriter.write(missionsList.get(i).toString() + "\n");
+        fileWriter.write(missionsList.get(i).toString() + ";\n");
       }
       fileWriter.flush();
       fileWriter.close();
@@ -94,21 +96,13 @@ public class TextDatabaseHandler implements DatabaseAdapter {
     System.out.println("Deleted!");
   }
 
-  public String listAll() {
-
-    StringBuilder sb = new StringBuilder();
-    try {
-      FileReader fileReader = new FileReader(file);
-      BufferedReader reader = new BufferedReader(fileReader);
-      String line;
-      while ((line = reader.readLine()) != null) {
-        sb.append(line);
+  public void listAll() {
+    try (Scanner in = new Scanner(file).useDelimiter(";");) {
+      while (in.hasNext()) {
+        System.out.println(in.next());
       }
-      reader.close();
-      return sb.toString();
     } catch (Exception e) {
-      System.err.println("Erro em fileReader:" + e.getMessage());
-      return null;
+      e.printStackTrace();
     }
   }
 
