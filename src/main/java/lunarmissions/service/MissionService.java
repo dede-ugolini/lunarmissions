@@ -94,8 +94,6 @@ public class MissionService {
 
     String goal = setGoalMission();
 
-    askSpaceShip();
-
     String spaceShip = setSpaceShipMission();
     Mission mission = new Mission(name, destination, goal, spaceShip);
     missionsList.add(mission);
@@ -203,19 +201,17 @@ public class MissionService {
   }
 
   public String setSpaceShipMission() {
-    String spaceShip;
-    spaceShip = Standards.SpaceShip.fromIndex(in.nextInt());
-    return spaceShip;
-  }
 
-  public String askSpaceShip() {
     System.out.println("Deseja selecionar uma nave predefinida? (y/n)");
     char answer = in.next().charAt(0);
+    in.nextLine();
     String spaceShip = null;
     switch (answer) {
       case 'y':
         Standards.SpaceShip.listSpaceShips();
         System.out.println("\nSelecione uma nave pelo index");
+        spaceShip = Standards.SpaceShip.fromIndex(in.nextInt());
+        in.nextLine();
         break;
       case 'n':
         System.out.println("Digite o seu modelo pessoal de nave");
