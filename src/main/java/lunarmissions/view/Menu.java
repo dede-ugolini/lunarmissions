@@ -1,6 +1,7 @@
 package lunarmissions.view;
 
 import lunarmissions.service.AstronautService;
+import lunarmissions.service.BinaryDatabaseHandler;
 import lunarmissions.service.MissionService;
 import lunarmissions.service.TextDatabaseHandler;
 import lunarmissions.standard.*;
@@ -13,7 +14,9 @@ public class Menu {
   private static Scanner in = new Scanner(System.in);
   private MissionService missionService = new MissionService(0);
   private Extras extras = new Extras();
+
   private TextDatabaseHandler textDatabaseHandler = new TextDatabaseHandler();
+  private BinaryDatabaseHandler binaryDatabaseHandler = new BinaryDatabaseHandler();
 
   public void openInitalMenu() {
 
@@ -102,7 +105,77 @@ public class Menu {
     switch (option) {
 
       case 1:
+        System.out.println("Text Database");
+        handleCrudOptions();
         handleTextOptions();
+        break;
+      case 2:
+        System.out.println("Binary Database");
+        handleCrudOptions();
+        handleBinaryOptions();
+        break;
+      case 3:
+        System.out.println("Nitrite Database");
+        handleCrudOptions();
+        break;
+      default:
+        Extras.optionNoRecognized(option);
+        break;
+    }
+  }
+
+  private void handleCrudOptions() {
+    System.out.println("1 - " + ConsoleColors.GREEN + "C" + ConsoleColors.RESET + "reate");
+    System.out.println("2 - " + ConsoleColors.YELLOW + "R" + ConsoleColors.RESET + "ead");
+    System.out.println("3 - Update");
+    System.out.println("4 - Delete");
+    System.out.println("5 - Delete all");
+    System.out.println("6 - List all");
+  }
+
+  private void handleBinaryOptions() {
+    int option = 0;
+    option = in.nextInt();
+    in.nextLine();
+
+    switch (option) {
+      case 1:
+        // create
+        binaryDatabaseHandler.create(missionService.getMissions().get(0));
+        break;
+      case 2:
+        // read
+        binaryDatabaseHandler.readAll();
+        break;
+      case 3:
+        try {
+          System.out.println("Digite o uuid da missão que deseja fazer update.");
+          String uuiString = in.nextLine();
+          binaryDatabaseHandler.update(missionService.getMissions().get(0),
+              UUID.fromString(uuiString));
+        } catch (Exception e) {
+          System.err.println("Erro ao fazer update do banco de dados binario: " + e.getMessage());
+          e.printStackTrace();
+        }
+        break;
+      case 4:
+        // delete
+        System.out.println("Digite o uuid da missão que deseja deletar");
+        String uuidString = in.nextLine();
+        UUID uuid = UUID.fromString(uuidString);
+        binaryDatabaseHandler.delete(uuid);
+        break;
+      case 5:
+        // delete all
+        binaryDatabaseHandler.resetDatabase();
+        break;
+      case 6:
+        // listAll
+        try {
+          binaryDatabaseHandler.readAll();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         break;
       default:
         Extras.optionNoRecognized(option);
@@ -112,13 +185,6 @@ public class Menu {
 
   public void handleTextOptions() {
     int option = 0;
-    System.out.println("1 - Create");
-    System.out.println("2 - Read");
-    System.out.println("3 - Update");
-    System.out.println("4 - Delete");
-    System.out.println("5 - Delete all");
-    System.out.println("6 - List all");
-
     option = in.nextInt();
 
     switch (option) {
@@ -133,6 +199,7 @@ public class Menu {
       case 4:
         break;
       case 5:
+        textDatabaseHandler.resetDatabase();
         break;
       case 6:
         textDatabaseHandler.listAll();
