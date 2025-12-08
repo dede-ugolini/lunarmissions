@@ -15,6 +15,7 @@ public class Menu {
   private MissionService missionService = new MissionService(0);
   private Extras extras = new Extras();
 
+  // Instanciando objetos do data base
   private TextDatabaseHandler textDatabaseHandler = new TextDatabaseHandler();
   private BinaryDatabaseHandler binaryDatabaseHandler = new BinaryDatabaseHandler();
 
