@@ -14,10 +14,10 @@ public class Astronaut {
   private int age;
   private int hours;
 
-  Astronaut() {
+  public Astronaut() {
   }
 
-  Astronaut(String name, SpaceShip spaceShip, int age, int hours) {
+  public Astronaut(String name, SpaceShip spaceShip, int age, int hours) {
     this.name = name;
     this.spaceShip = spaceShip;
     this.age = age;
@@ -101,4 +101,9 @@ public class Astronaut {
     this.hours = hours;
   }
 
+  @Override
+  public String toString() {
+    return ("Nome: " + getName() + "\nNave espacial: " + getSpaceShip() + "\nIdade: " + getAge()
+        + "\nHoras de experiência: " + getHours()) + "\n";
+  }
 }

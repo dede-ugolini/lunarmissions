@@ -6,31 +6,25 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import lunarmissions.standard.*;
 import lunarmissions.view.*;
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 
-public class TextDatabaseHandler implements DatabaseAdapter {
+public class TextDatabaseHandler {
 
   // FIX: Dessa forma não vai encontrar o arquivo, preciso passar como resource
   // e creio que preciso fazer diferente que o metodo loadResource.
-  private static File file = new File("/database/MissionDatabaseText.txt");
-  /*
-   * public String read(int qtd) {
-   * int ns = 0;
-   * try {
-   * FileReader fileReader = new FileReader(file);
-   * BufferedReader reader = new BufferedReader(fileReader);
-   * String line;
-   * while ((line = reader.readLine()) != null) {
-   * if (line.contains("\n")) {
-   * ns++;
-   * if (ns == qtd);
-   * }
-   * }
-   * } catch (Exception e) {
-   * System.err.println("Erro ao tentar ler o arquivo de texto: " +
-   * e.getMessage());
-   * }
-   * }
-   */
+
+  private static File file = new File("MissionDatabaseText.txt");
+
+  private static URI loadResource() {
+    try {
+      URI path = Extras.loadResourceAsPath("/database/MissionDatabaseText.txt");
+      return path;
+    } catch (Exception e) {
+      throw new RuntimeException("Falha ao carregar o banco de dados TXT");
+    }
+  }
 
   public String read(String field, String key) {
     String result;
@@ -41,10 +35,12 @@ public class TextDatabaseHandler implements DatabaseAdapter {
         if (token.contains(field) && token.contains(key)) {
           result = token;
           System.out.println("Contains " + field + "and contains " + key);
+          System.out.println(result);
           in.close();
           return result;
         }
       }
+      System.err.println("Não foi possível encontrar " + field + " e nem " + key);
       return null;
     } catch (Exception e) {
       e.printStackTrace();
@@ -81,7 +77,7 @@ public class TextDatabaseHandler implements DatabaseAdapter {
     try {
       FileWriter fileWriter = new FileWriter(file, true);
       for (int i = 0; i < missionsList.size(); i++) {
-        fileWriter.write(missionsList.get(i).toString() + "\n");
+        fileWriter.write(missionsList.get(i).toString() + ";\n");
       }
       fileWriter.flush();
       fileWriter.close();
@@ -100,21 +96,13 @@ public class TextDatabaseHandler implements DatabaseAdapter {
     System.out.println("Deleted!");
   }
 
-  public String listAll() {
-
-    StringBuilder sb = new StringBuilder();
-    try {
-      FileReader fileReader = new FileReader(file);
-      BufferedReader reader = new BufferedReader(fileReader);
-      String line;
-      while ((line = reader.readLine()) != null) {
-        sb.append(line);
+  public void listAll() {
+    try (Scanner in = new Scanner(file).useDelimiter(";");) {
+      while (in.hasNext()) {
+        System.out.println(in.next());
       }
-      reader.close();
-      return sb.toString();
     } catch (Exception e) {
-      System.err.println("Erro em fileReader:" + e.getMessage());
-      return null;
+      e.printStackTrace();
     }
   }
 

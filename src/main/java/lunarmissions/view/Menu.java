@@ -1,7 +1,10 @@
 package lunarmissions.view;
 
+import lunarmissions.service.AstronautService;
+import lunarmissions.service.BinaryDatabaseHandler;
 import lunarmissions.service.MissionService;
-import lunarmissions.standard.SpaceShip;
+import lunarmissions.service.TextDatabaseHandler;
+import lunarmissions.standard.*;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -9,10 +12,15 @@ import java.util.UUID;
 public class Menu {
 
   private static Scanner in = new Scanner(System.in);
-  private MissionService mission = new MissionService(0);
+  private MissionService missionService = new MissionService(0);
   private Extras extras = new Extras();
 
+  // Instanciando objetos do data base
+  private TextDatabaseHandler textDatabaseHandler = new TextDatabaseHandler();
+  private BinaryDatabaseHandler binaryDatabaseHandler = new BinaryDatabaseHandler();
+
   public void openInitalMenu() {
+
     /*
      * System.out.print("Processando");
      * for (int i = 0; i < 3; i++) {
@@ -20,8 +28,9 @@ public class Menu {
      * System.out.print(".");
      * }
      */
-
-    System.out.println("");
+    System.out.println(ConsoleColors.BLUE);
+    Extras.genImage("tittle");
+    System.out.println(ConsoleColors.RESET);
     // Pro tip: Ascii de viado não pode faltar
     System.out.println(ConsoleColors.CYAN + "‧₊˚✩ 🪐✩˚₊‧Bem vindo a Lunar Systems ‧₊˚✩ 🪐✩˚₊‧ " + ConsoleColors.RESET);
     System.out.println();
@@ -32,6 +41,8 @@ public class Menu {
     System.out.println("5 - Serialização");
     System.out.println("6 - Extras");
     System.out.println("7 - Limpar terminal");
+    System.out.println("8 - Adicionar Astronauta");
+    System.out.println("9 - Listar Astronautas");
     System.out.println("0 - Para sair do sistema");
     handleOptions();
   }
@@ -47,19 +58,19 @@ public class Menu {
         System.exit(0);
         break;
       case 1:
-        mission.listMissions();
+        missionService.listMissions();
         break;
       case 2:
-        mission.openMission();
+        missionService.openMission();
         break;
       case 3:
         handleRemoveOptions();
         break;
       case 4:
-        SpaceShip.listSpaceShips();
+        Standards.SpaceShip.listSpaceShips();
         break;
       case 5:
-        mission.handleSerializationOptions();
+        handleSerializationOptions();
         break;
       case 6:
         extras.extras();
@@ -67,15 +78,148 @@ public class Menu {
       case 7:
         System.out.print(ConsoleColors.CLEAR);
         break;
+      case 8:
+        AstronautService astronautService = new AstronautService();
+        astronautService.addAstronaut();
+        break;
+      case 9:
+        AstronautService astronautService2 = new AstronautService();
+        astronautService2.listAstronauts();
+        break;
       default:
-        System.out.println("\"" + option + "\" não é uma opção reconhecida");
-        System.exit(1);
+        Extras.optionNoRecognized(option);
         break;
     }
   }
+
   // TODO: Modulazizar melhor o projeto, a class MissionService está com muitos
   // metódos que não fazem sentido
   // ao seu propósito.
+  public void handleSerializationOptions() {
+    int option = 0;
+    System.out.println("1 - Fazer operações em arquivo de texto (txt)");
+    System.out.println("2 - Fazer operações em arquivo binário (Object Output Stream)");
+    System.out.println("3 - Fazer operações em banco de dados Nitrite");
+
+    option = in.nextInt();
+
+    switch (option) {
+
+      case 1:
+        System.out.println("Text Database");
+        handleCrudOptions();
+        handleTextOptions();
+        break;
+      case 2:
+        System.out.println("Binary Database");
+        handleCrudOptions();
+        handleBinaryOptions();
+        break;
+      case 3:
+        System.out.println("Nitrite Database");
+        handleCrudOptions();
+        break;
+      default:
+        Extras.optionNoRecognized(option);
+        break;
+    }
+  }
+
+  private void handleCrudOptions() {
+    System.out.println("1 - " + ConsoleColors.GREEN + "C" + ConsoleColors.RESET + "reate");
+    System.out.println("2 - " + ConsoleColors.YELLOW + "R" + ConsoleColors.RESET + "ead");
+    System.out.println("3 - Update");
+    System.out.println("4 - Delete");
+    System.out.println("5 - Delete all");
+    System.out.println("6 - List all");
+  }
+
+  private void handleBinaryOptions() {
+    int option = 0;
+    option = in.nextInt();
+    in.nextLine();
+
+    switch (option) {
+      case 1:
+        // create
+        binaryDatabaseHandler.create(missionService.getMissions().get(0));
+        break;
+      case 2:
+        // read
+        binaryDatabaseHandler.readAll();
+        break;
+      case 3:
+        try {
+          System.out.println("Digite o uuid da missão que deseja fazer update.");
+          String uuiString = in.nextLine();
+          binaryDatabaseHandler.update(missionService.getMissions().get(0),
+              UUID.fromString(uuiString));
+        } catch (Exception e) {
+          System.err.println("Erro ao fazer update do banco de dados binario: " + e.getMessage());
+          e.printStackTrace();
+        }
+        break;
+      case 4:
+        // delete
+        System.out.println("Digite o uuid da missão que deseja deletar");
+        String uuidString = in.nextLine();
+        UUID uuid = UUID.fromString(uuidString);
+        binaryDatabaseHandler.delete(uuid);
+        break;
+      case 5:
+        // delete all
+        binaryDatabaseHandler.resetDatabase();
+        break;
+      case 6:
+        // listAll
+        try {
+          binaryDatabaseHandler.readAll();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        break;
+      default:
+        Extras.optionNoRecognized(option);
+        break;
+    }
+  }
+
+  public void handleTextOptions() {
+    int option = 0;
+    option = in.nextInt();
+
+    switch (option) {
+      case 1:
+        textDatabaseHandler.create(missionService.getMissions());
+        break;
+      case 2:
+        handleReadOptions();
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
+        textDatabaseHandler.resetDatabase();
+        break;
+      case 6:
+        textDatabaseHandler.listAll();
+        break;
+      default:
+        Extras.optionNoRecognized(option);
+        break;
+    }
+  }
+
+  public void handleReadOptions() {
+    System.out.print("Digite o filtro para campo: ");
+    String field = in.nextLine();
+    in.nextLine();
+    System.out.print("\nDigite o filtro para valor: ");
+    String key = in.nextLine();
+
+    textDatabaseHandler.read(field, key);
+  }
 
   public void handleRemoveOptions() {
     int option = 0;
@@ -88,14 +232,14 @@ public class Menu {
       case 1:
         System.out.println("Digite o index:");
         System.out.println();
-        mission.remove(in.nextInt());
+        missionService.remove(in.nextInt());
         break;
       case 2:
         System.out.println("Digite o uuid:");
         String uuid = null;
         uuid = in.nextLine();
         // FIX: Não está funcionando remoção por UUID
-        mission.remove(UUID.fromString(uuid));
+        missionService.remove(UUID.fromString(uuid));
         break;
       default:
         System.err.println(ConsoleColors.RED + "Opção não reconhecida" + ConsoleColors.RESET);

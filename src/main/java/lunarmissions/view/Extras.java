@@ -2,12 +2,25 @@ package lunarmissions.view;
 
 import java.util.Scanner;
 import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class Extras {
 
   private final Scanner in = new Scanner(System.in);
   Animations animations = new Animations();
+
+  public static URI loadResourceAsPath(String path) throws Exception {
+    URL resourceUrl = Extras.class.getResource(path);
+    if (resourceUrl != null) {
+      URI resourcePath = resourceUrl.toURI();
+      return resourcePath;
+    }
+    return null;
+  }
 
   private static String loadResource(String path) throws Exception {
 
@@ -165,17 +178,16 @@ public class Extras {
     System.out.println("Deseja dar zoom (y/n)");
   }
 
-  // TODO: Corrigir o output
   public static void optionNoRecognized(String option) {
-    System.out.println(/* '"' + option + '"' + */"não é uma opção reconhecida.");
+    System.out.println("\"" + option + "\" não é uma opção reconhecida.");
   }
 
   public static void optionNoRecognized(char option) {
-    System.out.println(/* '"' + option + '"' + */" não é uma opção reconhecida.");
+    System.out.println("\"" + option + "\" não é uma opção reconhecida.");
   }
 
   public static void optionNoRecognized(int option) {
-    System.out.println(/* '"' + option + '"' + */"não é uma opção reconhecida.");
+    System.out.println("\"" + option + "\" não é uma opção reconhecida.");
   }
 
 }
