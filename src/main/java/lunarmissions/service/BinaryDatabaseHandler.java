@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.ArrayList;
 
+/**
+ * Fornece metodos para fazer operações CRUD no banco de dados binário de
+ * Objetos (ObjectInputStream, ObjectOutputStream).
+ */
 @SuppressWarnings("unchecked")
 public class BinaryDatabaseHandler {
 
@@ -32,6 +36,11 @@ public class BinaryDatabaseHandler {
     }
   }
 
+  /**
+   * Salva um missão no banco de dados.
+   *
+   * @param mission missão a ser salva no banco de dados.
+   */
   public void create(Mission mission) {
 
     try {
@@ -45,6 +54,9 @@ public class BinaryDatabaseHandler {
     }
   }
 
+  /**
+   * Faz operação de leitura por todo o banco de dados.
+   */
   public void readAll() {
 
     try {
@@ -59,6 +71,13 @@ public class BinaryDatabaseHandler {
     }
   }
 
+  /**
+   * Atualiza uma missão do banco de dados.
+   *
+   * @param newMission Nova missão para salvar no banco de dados.
+   * @param uuid       UUID da missão a ser atuliazada.
+   * @throws Exception
+   */
   public void update(Mission newMission, UUID uuid) throws Exception {
     boolean updated = false;
     if (newMission == null) {
@@ -78,6 +97,11 @@ public class BinaryDatabaseHandler {
     save(missionList);
   }
 
+  /**
+   * Exclui uma missão do banco de dados.
+   *
+   * @param uuid da missão a ser removida do banco de dados.
+   */
   public void delete(UUID uuid) {
 
     try {
@@ -98,6 +122,9 @@ public class BinaryDatabaseHandler {
     }
   }
 
+  /**
+   * Reseta o banco de dados.
+   */
   public void resetDatabase() {
     try {
       List<Mission> missionList = new ArrayList<Mission>();
