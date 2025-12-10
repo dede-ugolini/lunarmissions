@@ -1,5 +1,7 @@
 package lunarmissions.service;
 
+import java.util.UUID;
+
 public interface DatabaseAdapter {
 
   void create(Object o);

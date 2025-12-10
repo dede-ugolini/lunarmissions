@@ -199,3 +199,5 @@ README.html
 *.iml
 .idea
 .exercism
+MissionDatabaseBinary.dat
+src/main/java/lunarmissions/service/BinaryDatabaseHandlerDedeShit.java
