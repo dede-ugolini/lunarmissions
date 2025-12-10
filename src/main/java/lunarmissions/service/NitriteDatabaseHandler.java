@@ -8,8 +8,14 @@ import org.dizitart.no2.collection.Document;
 import org.dizitart.no2.collection.DocumentCursor;
 import org.dizitart.no2.mvstore.MVStoreModule;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.dizitart.no2.filters.FluentFilter.where;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import lunarmissions.standard.Mission;
@@ -33,9 +39,6 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	public NitriteDatabaseHandler() {
 		initNitrite();
 		
-		if(getCurrentDatabaseCounter() == 0) {
-			initDatabaseCounter();
-		}
 		//para testesssss
 		//start();
 	}
@@ -110,54 +113,14 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 		missaoCollection.update(where("ID_TYPE").eq("MISSION_CLASS"), dataToUpdtate, UpdateOptions.updateOptions(true));
 	}
 	
-	public void start() {
-		System.out.println("Hello World");
-		
-		System.out.println("Iniciando as operações CRUD:");
-		
-		System.out.println("\nRealizando escrita e leitura");
-		Mission missao = new Mission();
-		missao.setName("TheMissionName");
-		missao.setDestination("TheDestinationInfo");
-		missao.setGoal("TheGoalInfo");
-		missao.setSpaceShip("TheSpaceShip");
-		
-		Document content = Document.createDocument()
-				.put("UUID", missao.getID())
-				.put("name", missao.getName())
-				.put("destination", missao.getDestination())
-				.put("goal", missao.getGoal())
-				.put("spaceship", missao.getSpaceShip());
-		
-		System.out.println("Converting a document to a object and vice-versa");
-		Mission missao2 = DocumentMapper.toObject(content, Mission.class);
-		
-		//create(content);
-		//Document result = read("name", "TheMissionName");
-		//System.out.println(result.toString());
-		
-		/*
-		System.out.println("Deletando:");
-		System.out.println("Antes de deletar:");
-		
-		List<Document> allDocs = getAllDocuments();
-		for(int x = 0; x < allDocs.size(); x++) {
-			System.out.println(allDocs.get(x));
+	public boolean checkDatabaseExist() {
+		Path path = Paths.get(FILE_PATH);
+
+		if (Files.exists(path)) {
+		    return true;
+		} else {
+		    return false;
 		}
-		
-		delete(content);
-		
-		System.out.println("Depois de deletar:");
-		for(int x = 0; x < allDocs.size(); x++) {
-			System.out.println(allDocs.get(x));
-		}
-		*/
-		
-	}
-	
-	//Realizar os testes para poder identificar o funcionamento do banco de dados
-	public static void main(String[] args) {
-		new NitriteDatabaseHandler();
 	}
 
 	@Override
@@ -180,7 +143,11 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	@Override
 	public void update(Object o, String field, String key) {
 		// TODO Auto-generated method stub
+		Document doc = getCollection().find(where(field).eq(key)).firstOrNull();
+		Document contentToUpdate = DocumentMapper.toDocument(o);
 		
+		contentToUpdate.put("_id", doc.get("_id"));
+		getCollection().update(contentToUpdate);
 	}
 
 	@Override
@@ -199,10 +166,17 @@ public class NitriteDatabaseHandler implements DatabaseAdapter{
 	
 	@Override
 	public void resetDatabase() {
-		
+		database.close();
+		try {
+			Files.deleteIfExists(Paths.get("database.db"));
+		} catch (IOException e) {
+			System.out.println("Erro ao tentar deletar o arquivo de base de dados " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public NitriteCollection getCollection() {
 		return this.missaoCollection;
 	}
+	
 }
