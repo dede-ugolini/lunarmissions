@@ -8,13 +8,17 @@ import java.util.UUID;
  */
 public class Mission implements Serializable {
 
-	private final UUID uuid = UUID.randomUUID();
+	private UUID uuid = UUID.randomUUID();
 	private String name;
 	private String destination;
 	private String goal;
 	private String spaceShip;
 	// private ArrayList<Astronaut> astronauts;
 
+	public void setID(String id) {
+		uuid = UUID.fromString(id);
+	}
+	
 	public UUID getID() {
 		return uuid;
 	}
@@ -50,7 +54,31 @@ public class Mission implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
 
+	public String getField(String field) {
+		switch (field) {
+		case "name":
+			return getName();
+		
+		case "uuid":
+			return getID().toString();
+		
+		case "destination":
+			return getDestination();
+		
+		case "goal":
+			return getGoal();
+		
+		case "spaceShip":
+			return getSpaceShip();
+		
+		default:
+			return null;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return ("UUID: " + uuid + "\nNome: " + name + "\nDestino: " + destination + "\nObjetivo: " + goal
